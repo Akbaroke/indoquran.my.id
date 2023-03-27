@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      Quicksand: ['Quicksand', 'sans-serif'],
+    },
   },
   plugins: [],
 };
