@@ -44,8 +44,8 @@ export default function Page({ params }: { params: { slug: string } }) {
             <div key={res.nomorAyat} className='bg-white rounded-[10px] p-4 flex flex-col gap-2'>
               <p className='font-bold text-[var(--primary)] text-[16px]'>{detail?.nomor} : {res.nomorAyat}</p>
               <p className='text-end'>{res.teksArab}</p>
-              <p>{res.teksLatin}</p>
-              <p>{res.teksIndonesia}</p>
+              <p className='font-semibold text-[14px] text-[var(--primary)] font-Quicksand'>{res.teksLatin}</p>
+              <p className='font-semibold text-[14px] font-Quicksand'>{res.teksIndonesia}</p>
             </div>
           ))}
       </div>
