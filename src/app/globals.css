@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --primary: #00957B;
+}
+
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.arab {
+  font-family: 'Scheherazade New', serif;
 }
