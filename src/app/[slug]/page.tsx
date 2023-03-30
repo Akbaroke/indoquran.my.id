@@ -39,17 +39,15 @@ export default function Page({ params }: { params: { slug: string } }) {
         <IconChevronRight className='h-4' />
         <p>Baca Ayat</p>
       </div>
-      <div className='flex'>
-        <div ref={containerRef} className='h-max'>
+      <div ref={containerRef} className='h-max flex flex-col gap-4'>
           {ayat?.map(res => (
-            <div key={res.nomorAyat}>
-              <p>{detail?.nomor}:{res.nomorAyat}</p>
-              <p>{res.teksArab}</p>
+            <div key={res.nomorAyat} className='bg-white rounded-[10px] p-4 flex flex-col gap-2'>
+              <p className='font-bold text-[var(--primary)] text-[16px]'>{detail?.nomor} : {res.nomorAyat}</p>
+              <p className='text-end'>{res.teksArab}</p>
               <p>{res.teksLatin}</p>
               <p>{res.teksIndonesia}</p>
             </div>
           ))}
-        </div>
       </div>
     </div>
   );
