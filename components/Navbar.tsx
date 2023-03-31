@@ -8,9 +8,25 @@ import ProgresBar from './ProgresBar'
 
 export default function Navbar() {
   const [auth, setAuth] = React.useState<boolean>(false)
+  const [scrollY, setScrollY] = React.useState<number>(0)
+
+  React.useEffect(() => {
+    function handleScroll() {
+      setScrollY(window.scrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
-    <nav className=" h-[70px] bg-white sticky top-0 z-10">
+    <nav
+      className={`h-[70px] bg-white sticky top-0 z-10 ${
+        scrollY > 100 && 'shadow-md'
+      }`}>
       <ProgresBar />
       <div className="flex justify-between items-center px-10 pt-2">
         <Link href="/">
