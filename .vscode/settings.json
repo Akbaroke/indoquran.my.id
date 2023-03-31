@@ -9,5 +9,8 @@
   },
   "css.validate": false,
   "editor.tabSize": 2,
-  "headwind.runOnSave": false
+  "headwind.runOnSave": false,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

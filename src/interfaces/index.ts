@@ -28,3 +28,8 @@ export interface ListSurat {
   namaLatin: string
   arti: string
 }
+
+
+export interface QueryParamsAyat {
+  ayat?: string
+}

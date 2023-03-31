@@ -14,11 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='bg-gray-100'>
+      <body className="bg-gray-100">
         <Navbar />
-        <div className='p-10'>
-          {children}
-        </div>
+        <div className="py-10 px-5">{children}</div>
       </body>
     </html>
   )
