@@ -171,14 +171,16 @@ export default function Page({ params }: { params: { surat: string } }) {
               {res.teksIndonesia}
             </p>
             <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6]">
-              <IconHeart className="cursor-pointer hover:text-[var(--primary)]" />
-              <IconBookmark className="cursor-pointer hover:text-[var(--primary)]" />
+              <IconHeart className="cursor-pointer sm:hover:text-[var(--primary)]" />
+              <IconBookmark className="cursor-pointer sm:hover:text-[var(--primary)]" />
               <IconLink
-                className="cursor-pointer hover:text-[var(--primary)]"
-                onClick={() => console.log(`${window.location.href}?ayat=${res.nomorAyat}`)}
+                className="cursor-pointer sm:hover:text-[var(--primary)]"
+                onClick={() =>
+                  console.log(`${window.location.href}?ayat=${res.nomorAyat}`)
+                }
               />
               <IconHeadphones
-                className={`cursor-pointer hover:text-[var(--primary)] ${
+                className={`cursor-pointer sm:hover:text-[var(--primary)] ${
                   ayatPlay === res.nomorAyat && 'text-[var(--primary)]'
                 }`}
                 onClick={() => togglePlay(res.nomorAyat)}
