@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.13",
+    "@reduxjs/toolkit": "^1.9.3",
     "@tabler/icons-react": "^2.11.0",
     "@types/node": "18.15.10",
     "@types/react": "18.0.29",
@@ -20,6 +22,11 @@
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-loading-skeleton": "^3.2.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
+    "sass": "^1.60.0",
     "swr": "^2.1.1",
     "typescript": "5.0.2"
   },

@@ -28,8 +28,8 @@ export default function Navbar() {
         scrollY > 100 && 'shadow-md'
       }`}>
       <ProgresBar />
-      <div className="flex justify-between items-center px-10 pt-2">
-        <Link href="/">
+      <div className="flex justify-between items-center px-3 sm:px-10 pt-2">
+        <Link href="/" onClick={() => window.scrollTo(0, 0)}>
           <Image
             src={LOGO}
             width={60}

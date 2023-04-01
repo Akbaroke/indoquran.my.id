@@ -12,6 +12,8 @@ import {
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import ScrollToTop from '@/components/ScrollToTop'
+import { useDispatch } from 'react-redux'
+import { unsetModal } from '@/redux/actions/modal'
 
 async function fetchData(surat: string) {
   const res = await fetch(`${process.env.API_URL}/surat/${surat}`)
@@ -32,6 +34,7 @@ export default function Page({ params }: { params: { surat: string } }) {
   const [listAudio, setListAudio] = React.useState<Audio[]>([])
   const [ayatPlay, setAyatPlay] = React.useState<number>(0)
   const audio = audioRef.current
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
     setDetail(data)
@@ -65,6 +68,18 @@ export default function Page({ params }: { params: { surat: string } }) {
       audio?.pause()
     }
   }, [isPlaying, audio, audioPlay])
+
+  React.useEffect(() => {
+    function handleScroll() {
+      if (window.scrollY < 100) {
+        setBukaAyat(0)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const scrollToAyat = (nomorAyat: number): boolean => {
     const ayatRef = ayatRefs.current[nomorAyat - 1]
@@ -108,6 +123,9 @@ export default function Page({ params }: { params: { surat: string } }) {
 
   if (error) return <div>Failed to load data</div>
   if (!data) return <div>Loading...</div>
+  if (data) {
+    dispatch(unsetModal())
+  }
 
   return (
     <div className="max-w-[1107px] h-max m-auto relative">
@@ -121,6 +139,7 @@ export default function Page({ params }: { params: { surat: string } }) {
           <div className="flex flex-wrap justify-center items-center gap-[20px] mt-[20px] pt-[15px] m-auto border-t-2 border-t-[#f4f4f4]">
             <select
               className="py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] outline-none cursor-pointer"
+              value={bukaAyat}
               onChange={handleChangeAyat}>
               <option value="">Pilih Ayat</option>
               {Array.from({ length: detail?.jumlahAyat || 0 }, (_, i) => (
@@ -150,7 +169,9 @@ export default function Page({ params }: { params: { surat: string } }) {
         </div>
       </div>
       <div className="flex gap-2 text-[var(--primary)] font-semibold items-center py-4 px-2 text-[14px]">
-        <Link href="/">Daftar Surat</Link>
+        <Link href="/" onClick={() => window.scrollTo(0, 0)}>
+          Daftar Surat
+        </Link>
         <IconChevronRight className="h-4" />
         <p>Baca Ayat</p>
       </div>

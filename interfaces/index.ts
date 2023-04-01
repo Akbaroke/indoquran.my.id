@@ -1,3 +1,5 @@
+import ActionType from '@/redux/actionType'
+
 export interface detailSurat {
   nomor: number
   nama: string
@@ -29,7 +31,24 @@ export interface ListSurat {
   arti: string
 }
 
-
 export interface QueryParamsAyat {
   ayat?: string
+}
+
+export interface Action {
+  type: typeof ActionType.LOADING_OPEN
+  payload: {
+    message: string
+  }
+}
+
+export interface StateModal {
+  isOpen: boolean
+  type: string | null
+  message: string | null
+}
+
+export interface RootState {
+  modal: StateModal
+  // add more state slices here if needed
 }
