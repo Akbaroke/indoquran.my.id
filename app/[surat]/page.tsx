@@ -101,6 +101,11 @@ export default function Page({ params }: { params: { surat: string } }) {
     }
   }
 
+  const handleCopyLink = (link: string) => {
+    navigator.clipboard.writeText(link)
+    alert('Link copied successfully')
+  }
+
   if (error) return <div>Failed to load data</div>
   if (!data) return <div>Loading...</div>
 
@@ -174,9 +179,11 @@ export default function Page({ params }: { params: { surat: string } }) {
               <IconHeart className="cursor-pointer sm:hover:text-[var(--primary)]" />
               <IconBookmark className="cursor-pointer sm:hover:text-[var(--primary)]" />
               <IconLink
-                className="cursor-pointer sm:hover:text-[var(--primary)]"
+                className="cursor-pointer hover:text-[var(--primary)]"
                 onClick={() =>
-                  console.log(`${window.location.href}?ayat=${res.nomorAyat}`)
+                  handleCopyLink(
+                    `${window.location.href}?ayat=${res.nomorAyat}`
+                  )
                 }
               />
               <IconHeadphones
