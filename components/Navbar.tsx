@@ -60,7 +60,7 @@ export default function Navbar() {
           </div>
         ) : (
           <button
-            className="w-[100px] h-[35px] border border-[color:var(--primary)] rounded-full font-semibold text-[color:var(--primary)] capitalize"
+            className="w-[100px] h-[35px] border border-[color:var(--primary)] rounded-full font-semibold text-[color:var(--primary)] capitalize invisible"
             onClick={() => setAuth(!auth)}>
             Login
           </button>

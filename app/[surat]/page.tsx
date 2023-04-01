@@ -179,13 +179,13 @@ export default function Page({ params }: { params: { surat: string } }) {
         {ayats?.map((res, i) => (
           <div
             key={res.nomorAyat}
-            className="bg-white rounded-[10px] p-4 flex flex-col gap-2"
+            className="bg-white rounded-[10px] p-4 sm:p-5 flex flex-col gap-2"
             ref={el => (ayatRefs.current[i] = el)}>
             <p className="font-bold text-[var(--primary)] text-[16px]">
               {detail?.nomor} : {res.nomorAyat}
             </p>
             <p
-              className={`arab text-end text-[24px] ${
+              className={`arab text-end text-[24px] my-2 ${
                 ayatPlay === res.nomorAyat && 'text-[var(--primary)]'
               }`}>
               {res.teksArab}
