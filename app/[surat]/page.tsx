@@ -1,7 +1,7 @@
 'use client'
 import * as React from 'react'
 import useSWR from 'swr'
-import { ayatSurat, detailSurat } from '@/interfaces'
+import { Audio, ayatSurat, detailSurat } from '@/interfaces'
 import {
   IconBookmark,
   IconChevronRight,
@@ -23,8 +23,15 @@ export default function Page({ params }: { params: { surat: string } }) {
   const [detail, setDetail] = React.useState<detailSurat | undefined>(undefined)
   const [ayats, setAyats] = React.useState<ayatSurat[]>([])
   const ayatRefs = React.useRef<(HTMLDivElement | null)[]>([])
+  const audioRef = React.useRef<HTMLAudioElement>(null)
   const { data, error } = useSWR(params.surat, fetchData)
   const [bukaAyat, setBukaAyat] = React.useState<number>(0)
+  const [pilihQori, setPilihQori] = React.useState<keyof Audio>('01')
+  const [isPlaying, setIsPlaying] = React.useState<boolean>(false)
+  const [audioPlay, setAudioPlay] = React.useState<string>('')
+  const [listAudio, setListAudio] = React.useState<Audio[]>([])
+  const [ayatPlay, setAyatPlay] = React.useState<number>(0)
+  const audio = audioRef.current
 
   React.useEffect(() => {
     setDetail(data)
@@ -34,13 +41,30 @@ export default function Page({ params }: { params: { surat: string } }) {
         const urlParams = new URLSearchParams(window.location.search)
         const ayat = urlParams.get('ayat')
         ayat && setBukaAyat(parseInt(ayat))
-      }, 1000)
+      }, 2000)
+      setListAudio(data.ayat.map((ayat: { audio: string }) => ayat.audio))
     }
   }, [data])
 
   React.useEffect(() => {
     scrollToAyat(bukaAyat)
   }, [bukaAyat])
+
+  audio?.addEventListener('ended', () => {
+    setIsPlaying(false)
+    setAyatPlay(0)
+  })
+
+  React.useEffect(() => {
+    if (isPlaying) {
+      if (audio) {
+        audio.src = audioPlay
+        audio.play()
+      }
+    } else {
+      audio?.pause()
+    }
+  }, [isPlaying, audio, audioPlay])
 
   const scrollToAyat = (nomorAyat: number): boolean => {
     const ayatRef = ayatRefs.current[nomorAyat - 1]
@@ -58,6 +82,23 @@ export default function Page({ params }: { params: { surat: string } }) {
   const handleChangeAyat = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value: string = event.target.value
     setBukaAyat(parseInt(value))
+  }
+
+  const handleChangeQori = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value: keyof Audio = event.target.value as keyof Audio
+    setPilihQori(value)
+  }
+
+  const togglePlay = (nomerAyat: number) => {
+    const index = nomerAyat - 1
+    setAudioPlay(listAudio[index][pilihQori])
+    setAyatPlay(nomerAyat)
+    if (!isPlaying) {
+      setIsPlaying(true)
+    } else {
+      setIsPlaying(false)
+      setAyatPlay(0)
+    }
   }
 
   if (error) return <div>Failed to load data</div>
@@ -84,8 +125,15 @@ export default function Page({ params }: { params: { surat: string } }) {
                 </option>
               ))}
             </select>
-            <select className="py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] outline-none cursor-pointer">
-              <option value="">Pilih Qori</option>
+            <select
+              className="py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] outline-none cursor-pointer"
+              onChange={handleChangeQori}>
+              <option value="01">Pilih Qori</option>
+              <option value="01">Abdullah Al-Juhany</option>
+              <option value="02">Abdul Muhsin Al-Qasim</option>
+              <option value="03">Abdurrahman As-Sudais</option>
+              <option value="04">Ibrahim Al-Dossari</option>
+              <option value="05">Misyari Rasyid Al-Afasi</option>
             </select>
             <Link
               href="/"
@@ -110,7 +158,12 @@ export default function Page({ params }: { params: { surat: string } }) {
             <p className="font-bold text-[var(--primary)] text-[16px]">
               {detail?.nomor} : {res.nomorAyat}
             </p>
-            <p className="arab text-end text-[24px]">{res.teksArab}</p>
+            <p
+              className={`arab text-end text-[24px] ${
+                ayatPlay === res.nomorAyat && 'text-[var(--primary)]'
+              }`}>
+              {res.teksArab}
+            </p>
             <p className="font-semibold text-[14px] text-[var(--primary)] font-Quicksand">
               {res.teksLatin}
             </p>
@@ -118,14 +171,23 @@ export default function Page({ params }: { params: { surat: string } }) {
               {res.teksIndonesia}
             </p>
             <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6]">
-              <IconHeart className="cursor-pointer" />
-              <IconBookmark className="cursor-pointer" />
-              <IconLink className="cursor-pointer" />
-              <IconHeadphones className="cursor-pointer" />
+              <IconHeart className="cursor-pointer hover:text-[var(--primary)]" />
+              <IconBookmark className="cursor-pointer hover:text-[var(--primary)]" />
+              <IconLink
+                className="cursor-pointer hover:text-[var(--primary)]"
+                onClick={() => console.log(`${window.location.href}?ayat=${res.nomorAyat}`)}
+              />
+              <IconHeadphones
+                className={`cursor-pointer hover:text-[var(--primary)] ${
+                  ayatPlay === res.nomorAyat && 'text-[var(--primary)]'
+                }`}
+                onClick={() => togglePlay(res.nomorAyat)}
+              />
             </div>
           </div>
         ))}
       </div>
+      <audio src={audioPlay} typeof="audio/mp3" ref={audioRef} />
       <ScrollToTop />
     </div>
   )

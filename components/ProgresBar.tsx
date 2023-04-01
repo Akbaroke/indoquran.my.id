@@ -21,9 +21,9 @@ export default function ProgresBar() {
   }, [])
 
   return (
-    <div className="h-1 w-full bg-neutral-200 sticky">
+    <div className="h-[3px] w-full bg-white sticky">
       <div
-        className="h-1 bg-[var(--primary)]"
+        className="h-full bg-[var(--primary)]"
         style={{ width: `${percent}%` }}></div>
     </div>
   )

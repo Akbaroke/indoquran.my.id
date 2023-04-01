@@ -12,10 +12,10 @@ export interface ayatSurat {
   teksArab: string
   teksLatin: string
   teksIndonesia: string
-  audio: audio
+  audio: Audio
 }
 
-export type audio = {
+export type Audio = {
   ['01']: string
   ['02']: string
   ['03']: string
