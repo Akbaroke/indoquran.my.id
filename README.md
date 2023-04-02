@@ -1,38 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Alquran Online
 
-## Getting Started
+**Alquran online** adalah  sebuah aplikasi web yang menyediakan fitur untuk membaca dan mempelajari Alquran secara online. Aplikasi ini dikembangkan dengan menggunakan teknologi Nextjs, React, dan Typescript.
 
-First, run the development server:
+## Fitur-Fitur Aplikasi
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Aplikasi Alquran Online memiliki beberapa fitur yang dapat digunakan oleh penggunanya, di antaranya:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Membaca Alquran secara online dengan tampilan yang menarik dan responsif
+- Pencarian surat dengan kata kunci arti surat atau nama surat
+- Menandai ayat atau surat Alquran yang ingin diingat atau dipelajari lebih lanjut
+- Memberikan like atau love pada ayat yang mau di simpan
+- Pencarian berdasarkan nomor ayat
+- Setiap ayat sudah dilengkapi latin dan arti dalam bahasa indonesia
+- Menyalin link ayat
+- Memutar audio tilawah Alquran perayat serta sudah dilengkapi 5 versi Qori
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Cara Menggunakan Aplikasi
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Untuk menggunakan aplikasi Alquran Online, pengguna dapat mengakses website aplikasi di https://alquran-online-nextjs.vercel.app. Setelah halaman website terbuka, pengguna dapat melakukan beberapa hal berikut:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Membaca Alquran: Pengguna dapat membaca Alquran dengan memilih surat yang ingin dibaca pada daftar surat di halaman utama, kemudian memilih ayat yang ingin dibaca pada halaman surat tersebut.
+2. Pencarian ayat atau surat Alquran: Pengguna dapat melakukan pencarian ayat atau surat Alquran dengan mengetikkan kata kunci pada kolom pencarian di bagian atas halaman utama.
+3. Menandai ayat atau surat Alquran: Pengguna dapat menandai ayat atau surat Alquran yang ingin diingat atau dipelajari lebih lanjut dengan menekan tombol bookmark pada halaman ayat atau surat tersebut.
+4. Memutar audio tilawah Alquran: Pengguna dapat memutar audio tilawah Alquran dengan menekan tombol play pada ayat tersebut.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Kontak
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Jika Anda memiliki pertanyaan atau masukan mengenai aplikasi ini, silakan hubungi kami melalui [email](mailto:akbarmuhammad833@gmail.com).
