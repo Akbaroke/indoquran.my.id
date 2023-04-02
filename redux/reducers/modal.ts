@@ -18,6 +18,12 @@ const reducerModal = (
         type: 'loading',
         message: action.payload.message,
       }
+    case ActionType.MESSAGE_SORRY:
+      return {
+        isOpen: true,
+        type: 'sorry',
+        message: null,
+      }
     case ActionType.UNSET_MODAL:
       return {
         ...state,

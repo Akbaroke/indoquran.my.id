@@ -13,7 +13,7 @@ import {
 import Link from 'next/link'
 import ScrollToTop from '@/components/ScrollToTop'
 import { useDispatch } from 'react-redux'
-import { unsetModal } from '@/redux/actions/modal'
+import { unsetModal, modalSorry } from '@/redux/actions/modal'
 
 async function fetchData(surat: string) {
   const res = await fetch(`${process.env.API_URL}/surat/${surat}`)
@@ -123,7 +123,7 @@ export default function Page({ params }: { params: { surat: string } }) {
 
   if (error) return <div>Failed to load data</div>
   if (!data) return <div>Loading...</div>
-  if (data) {
+  if (ayats) {
     dispatch(unsetModal())
   }
 
@@ -159,12 +159,12 @@ export default function Page({ params }: { params: { surat: string } }) {
               <option value="04">Ibrahim Al-Dossari</option>
               <option value="05">Misyari Rasyid Al-Afasi</option>
             </select>
-            <Link
-              href="/"
-              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px]">
+            <div
+              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer"
+              onClick={() => dispatch(modalSorry())}>
               <p>Tafsir</p>
               <IconExternalLink className="w-[20px] h-[20px] stroke-[1.5]" />
-            </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -197,8 +197,14 @@ export default function Page({ params }: { params: { surat: string } }) {
               {res.teksIndonesia}
             </p>
             <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6]">
-              <IconHeart className="cursor-pointer sm:hover:text-[var(--primary)]" />
-              <IconBookmark className="cursor-pointer sm:hover:text-[var(--primary)]" />
+              <IconHeart
+                className="cursor-pointer sm:hover:text-[var(--primary)]"
+                onClick={() => dispatch(modalSorry())}
+              />
+              <IconBookmark
+                className="cursor-pointer sm:hover:text-[var(--primary)]"
+                onClick={() => dispatch(modalSorry())}
+              />
               <IconLink
                 className="cursor-pointer hover:text-[var(--primary)]"
                 onClick={() =>

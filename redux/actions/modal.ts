@@ -7,6 +7,10 @@ export const modalLoading = (message: string) => ({
   },
 })
 
+export const modalSorry = () => ({
+  type: ActionType.MESSAGE_SORRY,
+})
+
 export const unsetModal = () => ({
   type: ActionType.UNSET_MODAL,
 })
