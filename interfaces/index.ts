@@ -17,6 +17,11 @@ export interface ayatSurat {
   audio: Audio
 }
 
+export interface ayatTafsir {
+  ayat: number
+  teks: string
+}
+
 export type Audio = {
   ['01']: string
   ['02']: string

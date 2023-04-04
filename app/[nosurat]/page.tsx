@@ -15,18 +15,18 @@ import ScrollToTop from '@/components/ScrollToTop'
 import { useDispatch } from 'react-redux'
 import { unsetModal, modalSorry } from '@/redux/actions/modal'
 
-async function fetchData(surat: string) {
-  const res = await fetch(`${process.env.API_URL}/surat/${surat}`)
+async function fetchData(nosurat: string) {
+  const res = await fetch(`${process.env.API_URL}${nosurat}`)
   const data = await res.json()
   return data.data
 }
 
-export default function Page({ params }: { params: { surat: string } }) {
+export default function Page({ params }: { params: { nosurat: string } }) {
+  const { data, error } = useSWR(`/surat/${params.nosurat}`, fetchData)
   const [detail, setDetail] = React.useState<detailSurat | undefined>(undefined)
   const [ayats, setAyats] = React.useState<ayatSurat[]>([])
   const ayatRefs = React.useRef<(HTMLDivElement | null)[]>([])
   const audioRef = React.useRef<HTMLAudioElement>(null)
-  const { data, error } = useSWR(params.surat, fetchData)
   const [bukaAyat, setBukaAyat] = React.useState<number>(0)
   const [pilihQori, setPilihQori] = React.useState<keyof Audio>('01')
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false)
@@ -45,7 +45,7 @@ export default function Page({ params }: { params: { surat: string } }) {
         const ayat = urlParams.get('ayat')
         ayat && setBukaAyat(parseInt(ayat))
       }, 2000)
-      setListAudio(data.ayat.map((ayat: { audio: string }) => ayat.audio))
+      setListAudio(data.ayat?.map((ayat: { audio: string }) => ayat.audio))
     }
   }, [data])
 
@@ -116,7 +116,8 @@ export default function Page({ params }: { params: { surat: string } }) {
     }
   }
 
-  const handleCopyLink = (link: string) => {
+  const handleCopyLink = (ayat: number) => {
+    const link = `${window.location.origin}/${params.nosurat}?ayat=${ayat}`
     navigator.clipboard.writeText(link)
     alert('Link copied successfully')
   }
@@ -159,12 +160,12 @@ export default function Page({ params }: { params: { surat: string } }) {
               <option value="04">Ibrahim Al-Dossari</option>
               <option value="05">Misyari Rasyid Al-Afasi</option>
             </select>
-            <div
-              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer"
-              onClick={() => dispatch(modalSorry())}>
+            <Link
+              href={`${params.nosurat}/tafsir`}
+              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer">
               <p>Tafsir</p>
               <IconExternalLink className="w-[20px] h-[20px] stroke-[1.5]" />
-            </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -173,7 +174,7 @@ export default function Page({ params }: { params: { surat: string } }) {
           Daftar Surat
         </Link>
         <IconChevronRight className="h-4" />
-        <p>Baca Ayat</p>
+        <p>Surat</p>
       </div>
       <div className="h-max flex flex-col gap-4">
         {ayats?.map((res, i) => (
@@ -207,11 +208,7 @@ export default function Page({ params }: { params: { surat: string } }) {
               />
               <IconLink
                 className="cursor-pointer hover:text-[var(--primary)]"
-                onClick={() =>
-                  handleCopyLink(
-                    `${window.location.href}?ayat=${res.nomorAyat}`
-                  )
-                }
+                onClick={() => handleCopyLink(res.nomorAyat)}
               />
               <IconHeadphones
                 className={`cursor-pointer sm:hover:text-[var(--primary)] ${
