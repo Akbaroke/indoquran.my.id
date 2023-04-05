@@ -14,6 +14,7 @@ import Link from 'next/link'
 import ScrollToTop from '@/components/ScrollToTop'
 import { useDispatch } from 'react-redux'
 import { unsetModal, modalSorry, modalLoading } from '@/redux/actions/modal'
+import PlayingAnimation from '@/components/PlayingAnimation'
 
 async function fetchData(nosurat: string) {
   const res = await fetch(`${process.env.API_URL}${nosurat}`)
@@ -28,7 +29,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
   const ayatRefs = React.useRef<(HTMLDivElement | null)[]>([])
   const audioRef = React.useRef<HTMLAudioElement>(null)
   const [bukaAyat, setBukaAyat] = React.useState<number>(0)
-  const [pilihQori, setPilihQori] = React.useState<keyof Audio>('01')
+  const [pilihQori, setPilihQori] = React.useState<keyof Audio>('05')
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false)
   const [audioPlay, setAudioPlay] = React.useState<string>('')
   const [listAudio, setListAudio] = React.useState<Audio[]>([])
@@ -209,7 +210,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
             <p className="font-semibold text-[14px] font-Quicksand">
               {res.teksIndonesia}
             </p>
-            <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6]">
+            <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6] relative">
               <IconHeart
                 className="cursor-pointer sm:hover:text-[var(--primary)]"
                 onClick={() => dispatch(modalSorry())}
@@ -231,6 +232,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
                   setIsPlaying(!isPlaying)
                 }}
               />
+              {ayatPlay === res.nomorAyat && <PlayingAnimation />}
             </div>
           </div>
         ))}
