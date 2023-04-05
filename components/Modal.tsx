@@ -52,9 +52,7 @@ const DialogLoading = () => {
                 </Dialog.Title>
                 <div className="mt-5 text-center">
                   <p className="text-sm text-gray-400">Mohon tunggu...</p>
-                  <p className="text-sm text-gray-400">
-                    proses membuka surat {message}.
-                  </p>
+                  <p className="text-sm text-gray-400">{message}.</p>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

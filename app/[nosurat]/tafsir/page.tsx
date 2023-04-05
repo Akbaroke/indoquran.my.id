@@ -3,7 +3,6 @@ import * as React from 'react'
 import useSWR from 'swr'
 import { ayatTafsir, detailSurat } from '@/interfaces'
 import {
-  IconBookmark,
   IconChevronRight,
   IconExternalLink,
   IconHeart,
@@ -12,7 +11,7 @@ import {
 import Link from 'next/link'
 import ScrollToTop from '@/components/ScrollToTop'
 import { useDispatch } from 'react-redux'
-import { modalSorry } from '@/redux/actions/modal'
+import { modalLoading, modalSorry, unsetModal } from '@/redux/actions/modal'
 
 async function fetchData(nosurat: string) {
   const res = await fetch(`${process.env.API_URL}${nosurat}`)
@@ -36,7 +35,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
         const urlParams = new URLSearchParams(window.location.search)
         const ayat = urlParams.get('ayat')
         ayat && setBukaAyat(parseInt(ayat))
-      }, 2000)
+      }, 1000)
     }
   }, [data])
 
@@ -45,6 +44,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
   }, [bukaAyat])
 
   React.useEffect(() => {
+    dispatch(modalLoading(''))
     function handleScroll() {
       if (window.scrollY < 100) {
         setBukaAyat(0)
@@ -54,7 +54,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [dispatch])
 
   const scrollToAyat = (nomorAyat: number): boolean => {
     const ayatRef = ayatRefs.current[nomorAyat - 1]
@@ -84,6 +84,11 @@ export default function Page({ params }: { params: { nosurat: string } }) {
 
   if (error) return <div>Failed to load data</div>
   if (!data) return <div>Loading...</div>
+  if (data) {
+    setTimeout(() => {
+      dispatch(unsetModal())
+    }, 1000)
+  }
 
   return (
     <div className="max-w-[1107px] h-max m-auto relative">
@@ -109,7 +114,13 @@ export default function Page({ params }: { params: { nosurat: string } }) {
             </select>
             <Link
               href={`../${params.nosurat}`}
-              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer">
+              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer"
+              onClick={() => {
+                window.scrollTo(0, 0)
+                dispatch(
+                  modalLoading(`proses membuka surat ${detail?.namaLatin}`)
+                )
+              }}>
               <p>Surat</p>
               <IconExternalLink className="w-[20px] h-[20px] stroke-[1.5]" />
             </Link>
@@ -123,7 +134,10 @@ export default function Page({ params }: { params: { nosurat: string } }) {
         <IconChevronRight className="h-4" />
         <Link
           href={`../${params.nosurat}`}
-          onClick={() => window.scrollTo(0, 0)}>
+          onClick={() => {
+            window.scrollTo(0, 0)
+            dispatch(modalLoading(`proses membuka surat ${detail?.namaLatin}`))
+          }}>
           Surat
         </Link>
         <IconChevronRight className="h-4" />
@@ -143,10 +157,6 @@ export default function Page({ params }: { params: { nosurat: string } }) {
             </p>
             <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6]">
               <IconHeart
-                className="cursor-pointer sm:hover:text-[var(--primary)]"
-                onClick={() => dispatch(modalSorry())}
-              />
-              <IconBookmark
                 className="cursor-pointer sm:hover:text-[var(--primary)]"
                 onClick={() => dispatch(modalSorry())}
               />

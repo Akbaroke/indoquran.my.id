@@ -63,7 +63,7 @@ export default function Page() {
             <Link
               onClick={() => {
                 window.scrollTo(0, 0)
-                dispatch(modalLoading(data.namaLatin))
+                dispatch(modalLoading(`proses membuka surat ${data.namaLatin}`))
               }}
               href={`/${data.nomor}`}
               key={data.nomor}

@@ -13,7 +13,7 @@ import {
 import Link from 'next/link'
 import ScrollToTop from '@/components/ScrollToTop'
 import { useDispatch } from 'react-redux'
-import { unsetModal, modalSorry } from '@/redux/actions/modal'
+import { unsetModal, modalSorry, modalLoading } from '@/redux/actions/modal'
 
 async function fetchData(nosurat: string) {
   const res = await fetch(`${process.env.API_URL}${nosurat}`)
@@ -44,7 +44,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
         const urlParams = new URLSearchParams(window.location.search)
         const ayat = urlParams.get('ayat')
         ayat && setBukaAyat(parseInt(ayat))
-      }, 2000)
+      }, 1000)
       setListAudio(data.ayat?.map((ayat: { audio: string }) => ayat.audio))
     }
   }, [data])
@@ -70,6 +70,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
   }, [isPlaying, audio, audioPlay])
 
   React.useEffect(() => {
+    dispatch(modalLoading(''))
     function handleScroll() {
       if (window.scrollY < 100) {
         setBukaAyat(0)
@@ -79,7 +80,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [dispatch])
 
   const scrollToAyat = (nomorAyat: number): boolean => {
     const ayatRef = ayatRefs.current[nomorAyat - 1]
@@ -124,8 +125,10 @@ export default function Page({ params }: { params: { nosurat: string } }) {
 
   if (error) return <div>Failed to load data</div>
   if (!data) return <div>Loading...</div>
-  if (ayats) {
-    dispatch(unsetModal())
+  if (data) {
+    setTimeout(() => {
+      dispatch(unsetModal())
+    }, 1000)
   }
 
   return (
@@ -162,7 +165,13 @@ export default function Page({ params }: { params: { nosurat: string } }) {
             </select>
             <Link
               href={`${params.nosurat}/tafsir`}
-              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer">
+              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer"
+              onClick={() => {
+                window.scrollTo(0, 0)
+                dispatch(
+                  modalLoading(`proses membuka tafsir ${detail?.namaLatin}`)
+                )
+              }}>
               <p>Tafsir</p>
               <IconExternalLink className="w-[20px] h-[20px] stroke-[1.5]" />
             </Link>
@@ -225,3 +234,4 @@ export default function Page({ params }: { params: { nosurat: string } }) {
     </div>
   )
 }
+
