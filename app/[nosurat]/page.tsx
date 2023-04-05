@@ -55,8 +55,12 @@ export default function Page({ params }: { params: { nosurat: string } }) {
 
   audio?.addEventListener('ended', () => {
     setIsPlaying(false)
-    setAyatPlay(0)
+    togglePlay(ayatPlay + 1)
   })
+
+  React.useEffect(() => {
+    !isPlaying && setAyatPlay(0)
+  }, [isPlaying])
 
   React.useEffect(() => {
     if (isPlaying) {
@@ -106,14 +110,13 @@ export default function Page({ params }: { params: { nosurat: string } }) {
   }
 
   const togglePlay = (nomerAyat: number) => {
-    const index = nomerAyat - 1
-    setAudioPlay(listAudio[index][pilihQori])
-    setAyatPlay(nomerAyat)
-    if (!isPlaying) {
+    const jumlahAyat = detail?.jumlahAyat || 0
+    if (nomerAyat <= jumlahAyat) {
       setIsPlaying(true)
-    } else {
-      setIsPlaying(false)
-      setAyatPlay(0)
+      const index = nomerAyat - 1
+      setAudioPlay(listAudio[index][pilihQori])
+      setAyatPlay(nomerAyat)
+      scrollToAyat(nomerAyat)
     }
   }
 
@@ -223,7 +226,10 @@ export default function Page({ params }: { params: { nosurat: string } }) {
                 className={`cursor-pointer sm:hover:text-[var(--primary)] ${
                   ayatPlay === res.nomorAyat && 'text-[var(--primary)]'
                 }`}
-                onClick={() => togglePlay(res.nomorAyat)}
+                onClick={() => {
+                  togglePlay(res.nomorAyat)
+                  setIsPlaying(!isPlaying)
+                }}
               />
             </div>
           </div>
