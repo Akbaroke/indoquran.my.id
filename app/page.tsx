@@ -45,14 +45,14 @@ export default function Page() {
 
   return (
     <div className="max-w-[1100px] m-auto">
-      <div className="relative bg-white w-full h-[50px] flex items-center px-[20px] rounded-lg">
-        <IconSearch className="absolute text-[var(--primary)]" />
+      <div className="relative bg-white w-full h-[40px] sm:h-[50px] flex items-center px-[13px] sm:px-[20px] rounded-lg">
+        <IconSearch className="absolute text-[var(--primary)] w-5 h-5 sm:w-6 sm:h-6" />
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
           type="search"
           placeholder="Cari surat"
-          className="w-full h-full bg-transparent outline-none pl-10 placeholder-gray-300 font-semibold placeholder:font-normal"
+          className="w-full h-full bg-transparent outline-none pl-8 sm:pl-10 placeholder-gray-300 font-semibold placeholder:font-normal placeholder:text-[14px] sm:placeholder:text-[18px]"
         />
       </div>
       {!listSurat ? (
@@ -67,11 +67,11 @@ export default function Page() {
               }}
               href={`/${data.nomor}`}
               key={data.nomor}
-              className="w-[160px] h-[60px] sm:w-[250px] sm:h-[84px] border border-white hover:border-[var(--primary)] hover:shadow-lg rounded-lg bg-white transition-all cursor-pointer px-[15px] sm:px-[27px] flex items-center gap-3 font-Quicksand">
+              className="w-[145px] h-[60px] sm:w-[250px] sm:h-[84px] border border-white hover:border-[var(--primary)] hover:shadow-lg rounded-lg bg-white transition-all cursor-pointer px-[10px] sm:px-[27px] flex items-center gap-2 sm:gap-3 font-Quicksand">
               <span className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px] grid place-items-center bg-[var(--primary)] rounded-full text-white font-semibold self-start mt-4 sm:mt-6 text-[10px] sm:text-[14px]">
                 {data.nomor}
               </span>
-              <div className="flex-grow">
+              <div className="w-24 sm:w-auto">
                 <h2 className="font-bold text-[13px] sm:text-[16px] capitalize">
                   {data.namaLatin}
                 </h2>

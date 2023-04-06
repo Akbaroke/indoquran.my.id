@@ -54,20 +54,17 @@
     background: #fff;
     display: inline-block;
     transform-origin: bottom center;
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    animation: loader 1.2s linear infinite;
-    margin-right: 1px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    animation: playing 1s linear infinite;
   }
 
   span:nth-of-type(1) {
     animation-delay: .1s;
-    margin-right: 1.5px;
   }
 
   span:nth-of-type(2) {
     animation-delay: .2s;
-    margin-right: 2px;
   }
 
   span:nth-of-type(3) {
@@ -76,7 +73,6 @@
 
   span:nth-of-type(4) {
     animation-delay: .4s;
-    margin-right: 2px;
   }
 
   span:nth-of-type(5) {
@@ -84,7 +80,7 @@
   }
 }
 
-@keyframes loader {
+@keyframes playing {
   0% {
     transform: scaleY(0.1);
     background: transparent;
@@ -99,5 +95,30 @@
   100% {
     transform: scaleY(0.1);
     background: transparent;
+  }
+}
+
+.loadingCircle {
+  position: absolute;
+  right: 5px;
+  top: 20px;
+  width: 20px;
+  height: 20px;
+  border: 3px solid transparent;
+  border-top-color: var(--primary);
+  border-bottom-color: var(--primary);
+  border-radius: 50%;
+  animation: spin-stretch 2s ease infinite;
+}
+
+@keyframes spin-stretch {
+  50% {
+    transform: rotate(360deg) scale(0.4, 0.33);
+    border-width: 6px;
+  }
+
+  100% {
+    transform: rotate(720deg) scale(1, 1);
+    border-width: 2px;
   }
 }

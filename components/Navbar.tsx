@@ -24,19 +24,25 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`h-[70px] bg-white sticky top-0 z-10 ${
+      className={`h-[70px] bg-white/50 backdrop-blur-sm sticky top-0 z-10 ${
         scrollY > 100 && 'shadow-md'
       }`}>
       <ProgresBar />
-      <div className="flex justify-between items-center px-3 sm:px-10 pt-2">
-        <Link href="/" onClick={() => window.scrollTo(0, 0)}>
+      <div className="flex justify-between items-center px-3 sm:px-10 mt-1">
+        <Link
+          href="/"
+          onClick={() => window.scrollTo(0, 0)}
+          className="flex items-center">
           <Image
             src={LOGO}
-            width={60}
-            height={60}
+            width={70}
+            height={70}
             alt="logo alquran online"
             className="cursor-pointer"
           />
+          <h1 className="text-[22px] sm:text-[24px] font-bold italic text-[var(--primary)] drop-shadow-md">
+            IndoQur`an
+          </h1>
         </Link>
         {auth ? (
           <div className="flex gap-[50px]">

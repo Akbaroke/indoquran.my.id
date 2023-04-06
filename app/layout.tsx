@@ -18,10 +18,10 @@ export default function RootLayout({
         <link rel="icon" href="../assets/logo-alquran.png" />
       </head>
       <Provider store={store}>
-        <body className="bg-gray-100">
+        <body className="bg-gradient-to-r from-gray-100 via-gray-50 to-gray-100">
           <Navbar />
           <Modal />
-          <div className="py-5 px-5">{children}</div>
+          <div className="py-2 px-2 sm:py-5 sm:px-5">{children}</div>
         </body>
       </Provider>
     </html>

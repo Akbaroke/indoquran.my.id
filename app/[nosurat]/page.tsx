@@ -15,6 +15,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import { useDispatch } from 'react-redux'
 import { unsetModal, modalSorry, modalLoading } from '@/redux/actions/modal'
 import PlayingAnimation from '@/components/PlayingAnimation'
+import LoadingCircleAnimation from '@/components/LoadingCircleAnimation'
 
 async function fetchData(nosurat: string) {
   const res = await fetch(`${process.env.API_URL}${nosurat}`)
@@ -32,6 +33,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
   const [pilihQori, setPilihQori] = React.useState<keyof Audio>('05')
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false)
   const [audioPlay, setAudioPlay] = React.useState<string>('')
+  const [isAudioLoading, setIsAudioLoading] = React.useState<boolean>(false)
   const [listAudio, setListAudio] = React.useState<Audio[]>([])
   const [ayatPlay, setAyatPlay] = React.useState<number>(0)
   const audio = audioRef.current
@@ -53,11 +55,6 @@ export default function Page({ params }: { params: { nosurat: string } }) {
   React.useEffect(() => {
     scrollToAyat(bukaAyat)
   }, [bukaAyat])
-
-  audio?.addEventListener('ended', () => {
-    setIsPlaying(false)
-    togglePlay(ayatPlay + 1)
-  })
 
   React.useEffect(() => {
     !isPlaying && setAyatPlay(0)
@@ -87,6 +84,19 @@ export default function Page({ params }: { params: { nosurat: string } }) {
     }
   }, [dispatch])
 
+  audio?.addEventListener('ended', () => {
+    setIsPlaying(false)
+    togglePlay(ayatPlay + 1)
+    setIsAudioLoading(true)
+  })
+
+  audio?.addEventListener('loadedmetadata', () => {
+    setIsAudioLoading(false)
+  })
+  audio?.addEventListener('play', () => {
+    setIsAudioLoading(true)
+  })
+
   const scrollToAyat = (nomorAyat: number): boolean => {
     const ayatRef = ayatRefs.current[nomorAyat - 1]
     if (ayatRef) {
@@ -112,12 +122,20 @@ export default function Page({ params }: { params: { nosurat: string } }) {
 
   const togglePlay = (nomerAyat: number) => {
     const jumlahAyat = detail?.jumlahAyat || 0
-    if (nomerAyat <= jumlahAyat) {
+
+    if (ayatPlay === nomerAyat) {
+      setIsPlaying(false)
+    } else {
       setIsPlaying(true)
-      const index = nomerAyat - 1
-      setAudioPlay(listAudio[index][pilihQori])
-      setAyatPlay(nomerAyat)
-      scrollToAyat(nomerAyat)
+      if (nomerAyat <= jumlahAyat) {
+        const index = nomerAyat - 1
+        setAudioPlay(listAudio[index][pilihQori])
+        setAyatPlay(nomerAyat)
+        scrollToAyat(nomerAyat)
+      } else {
+        setIsPlaying(false)
+        setAyatPlay(0)
+      }
     }
   }
 
@@ -193,13 +211,13 @@ export default function Page({ params }: { params: { nosurat: string } }) {
         {ayats?.map((res, i) => (
           <div
             key={res.nomorAyat}
-            className="bg-white rounded-[10px] p-4 sm:p-5 flex flex-col gap-2"
+            className="bg-white/50 backdrop-blur-sm rounded-[10px] p-4 sm:p-5 flex flex-col gap-2"
             ref={el => (ayatRefs.current[i] = el)}>
             <p className="font-bold text-[var(--primary)] text-[16px]">
               {detail?.nomor} : {res.nomorAyat}
             </p>
             <p
-              className={`arab text-end text-[24px] my-2 ${
+              className={`arab text-end text-[26px] my-2 ${
                 ayatPlay === res.nomorAyat && 'text-[var(--primary)]'
               }`}>
               {res.teksArab}
@@ -210,7 +228,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
             <p className="font-semibold text-[14px] font-Quicksand">
               {res.teksIndonesia}
             </p>
-            <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6] relative">
+            <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[25px] sm:gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6] relative">
               <IconHeart
                 className="cursor-pointer sm:hover:text-[var(--primary)]"
                 onClick={() => dispatch(modalSorry())}
@@ -229,10 +247,15 @@ export default function Page({ params }: { params: { nosurat: string } }) {
                 }`}
                 onClick={() => {
                   togglePlay(res.nomorAyat)
-                  setIsPlaying(!isPlaying)
                 }}
               />
-              {ayatPlay === res.nomorAyat && <PlayingAnimation />}
+              {ayatPlay === res.nomorAyat ? (
+                isAudioLoading ? (
+                  <LoadingCircleAnimation />
+                ) : (
+                  <PlayingAnimation />
+                )
+              ) : null}
             </div>
           </div>
         ))}
