@@ -1,4 +1,4 @@
-import { Action, StateModal } from '@/interfaces'
+import { ActionModal, StateModal } from '@/interfaces'
 import ActionType from '../actionType'
 
 const initState: StateModal = {
@@ -9,7 +9,7 @@ const initState: StateModal = {
 
 const reducerModal = (
   state: StateModal = initState,
-  action: Action
+  action: ActionModal
 ): StateModal => {
   switch (action.type) {
     case ActionType.LOADING_OPEN:

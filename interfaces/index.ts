@@ -40,7 +40,7 @@ export interface QueryParamsAyat {
   ayat?: string
 }
 
-export interface Action {
+export interface ActionModal {
   type: typeof ActionType.LOADING_OPEN
   payload: {
     message: string
@@ -55,5 +55,4 @@ export interface StateModal {
 
 export interface RootState {
   modal: StateModal
-  // add more state slices here if needed
 }

@@ -265,4 +265,3 @@ export default function Page({ params }: { params: { nosurat: string } }) {
     </div>
   )
 }
-
