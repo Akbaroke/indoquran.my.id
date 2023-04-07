@@ -6,7 +6,6 @@ export default function PlayingAnimation() {
       <span></span>
       <span></span>
       <span></span>
-      <span></span>
     </div>
   )
 }
