@@ -17,7 +17,7 @@ Aplikasi Alquran Online memiliki beberapa fitur yang dapat digunakan oleh penggu
 
 ## Cara Menggunakan Aplikasi
 
-Untuk menggunakan aplikasi Alquran Online, pengguna dapat mengakses website aplikasi di https://alquran-online-nextjs.vercel.app. Setelah halaman website terbuka, pengguna dapat melakukan beberapa hal berikut:
+Untuk menggunakan aplikasi Alquran Online, pengguna dapat mengakses website aplikasi di https://www.indoquran.my.id. Setelah halaman website terbuka, pengguna dapat melakukan beberapa hal berikut:
 
 1. Membaca Alquran: Pengguna dapat membaca Alquran dengan memilih surat yang ingin dibaca pada daftar surat di halaman utama, kemudian memilih ayat yang ingin dibaca pada halaman surat tersebut.
 2. Pencarian ayat atau surat Alquran: Pengguna dapat melakukan pencarian ayat atau surat Alquran dengan mengetikkan kata kunci pada kolom pencarian di bagian atas halaman utama.
