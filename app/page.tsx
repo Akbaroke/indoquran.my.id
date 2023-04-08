@@ -59,14 +59,14 @@ export default function Page() {
         <CardSuratSkeleton cards={20} />
       ) : (
         <div className="flex flex-wrap gap-[8px] sm:gap-[15px] justify-center sm:mt-5 mt-3">
-          {searchResult.map(data => (
+          {searchResult.map((data, index) => (
             <Link
               onClick={() => {
                 window.scrollTo(0, 0)
                 dispatch(modalLoading(`proses membuka surat ${data.namaLatin}`))
               }}
               href={`/${data.nomor}`}
-              key={data.nomor}
+              key={index}
               className="w-[145px] h-[60px] sm:w-[250px] sm:h-[84px] border border-white hover:border-[var(--primary)] hover:shadow-lg rounded-lg bg-white transition-all cursor-pointer px-[10px] sm:px-[27px] flex items-center gap-2 sm:gap-3 font-Quicksand">
               <span className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px] grid place-items-center bg-[var(--primary)] rounded-full text-white font-semibold self-start mt-4 sm:mt-6 text-[10px] sm:text-[14px]">
                 {data.nomor}

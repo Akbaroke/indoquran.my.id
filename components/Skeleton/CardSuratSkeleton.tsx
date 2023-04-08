@@ -12,7 +12,7 @@ export default function CardSuratSkeleton({ cards }: Props): JSX.Element {
         .map((_, i) => (
           <div
             key={i}
-            className="w-[160px] h-[60px] sm:w-[250px] sm:h-[84px] border border-white rounded-lg bg-white transition-all px-[15px] sm:px-[27px] relative">
+            className="w-[145px] h-[60px] sm:w-[250px] sm:h-[84px] border border-white rounded-lg bg-white transition-all px-[15px] sm:px-[27px] relative">
             <ContentLoader
               speed={2}
               width={130}
