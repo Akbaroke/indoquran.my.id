@@ -45,7 +45,7 @@ export default function Page() {
 
   return (
     <div className="max-w-[1100px] m-auto">
-      <div className="relative bg-white w-full h-[40px] sm:h-[50px] flex items-center px-[13px] sm:px-[20px] rounded-lg">
+      <div className="relative bg-white w-full h-[40px] sm:h-[50px] flex items-center px-[13px] sm:px-[20px] rounded-lg dark:bg-slate-700">
         <IconSearch className="absolute text-[var(--primary)] w-5 h-5 sm:w-6 sm:h-6" />
         <input
           value={search}
@@ -67,7 +67,7 @@ export default function Page() {
               }}
               href={`/${data.nomor}`}
               key={data.nomor}
-              className="w-[145px] h-[60px] sm:w-[250px] sm:h-[84px] border border-white hover:border-[var(--primary)] hover:shadow-lg rounded-lg bg-white transition-all cursor-pointer px-[10px] sm:px-[27px] flex items-center gap-2 sm:gap-3 font-Quicksand">
+              className="w-[145px] h-[60px] sm:w-[250px] sm:h-[84px] border border-white hover:border-[var(--primary)] hover:shadow-lg rounded-lg bg-white transition-all cursor-pointer px-[10px] sm:px-[27px] flex items-center gap-2 sm:gap-3 font-Quicksand dark:bg-slate-700 dark:border-none">
               <span className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px] grid place-items-center bg-[var(--primary)] rounded-full text-white font-semibold self-start mt-4 sm:mt-6 text-[10px] sm:text-[14px]">
                 {data.nomor}
               </span>

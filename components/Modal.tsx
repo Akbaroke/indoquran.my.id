@@ -33,7 +33,7 @@ const DialogLoading = () => {
           leave="ease-in duration-200"
           leaveFrom="opacity-100"
           leaveTo="opacity-0">
-          <div className="fixed inset-0 bg-black bg-opacity-25" />
+          <div className="fixed inset-0 bg-black bg-opacity-25 dark:bg-opacity-50" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -46,13 +46,13 @@ const DialogLoading = () => {
               leave="ease-in duration-200"
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95">
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-slate-800 p-10 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title as="div" className="flex justify-center">
                   <LoadingAnimation />
                 </Dialog.Title>
                 <div className="mt-5 text-center">
                   <p className="text-sm text-gray-400">Mohon tunggu...</p>
-                  <p className="text-sm text-gray-400">{message}.</p>
+                  <p className="text-sm text-gray-400">{message}</p>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -80,7 +80,7 @@ const DialogMessageSorry = () => {
           leave="ease-in duration-200"
           leaveFrom="opacity-100"
           leaveTo="opacity-0">
-          <div className="fixed inset-0 bg-black bg-opacity-25" />
+          <div className="fixed inset-0 bg-black bg-opacity-25 dark:bg-opacity-50" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -93,7 +93,7 @@ const DialogMessageSorry = () => {
               leave="ease-in duration-200"
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95">
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-slate-800 p-10 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title as="div" className="flex justify-center">
                   <Image
                     src={StorySetDevelopment}

@@ -155,7 +155,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
 
   return (
     <div className="max-w-[1107px] h-max m-auto relative">
-      <div className="bg-white p-[22px] rounded-[10px] text-center">
+      <div className="bg-white p-[22px] rounded-[10px] text-center dark:bg-slate-700/50">
         <div>
           <p className="arab text-[24px]">{detail?.nama}</p>
           <p className="text-[24px] font-semibold">{detail?.namaLatin}</p>
@@ -164,7 +164,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
           </p>
           <div className="flex flex-wrap justify-center items-center gap-[20px] mt-[20px] pt-[15px] m-auto border-t-2 border-t-[#f4f4f4]">
             <select
-              className="py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] outline-none cursor-pointer"
+              className="py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] h-[40px] outline-none cursor-pointer dark:bg-slate-800"
               value={bukaAyat}
               onChange={handleChangeAyat}>
               <option value="">Pilih Ayat</option>
@@ -176,7 +176,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
               ))}
             </select>
             <select
-              className="py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] outline-none cursor-pointer"
+              className="py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] outline-none cursor-pointer dark:bg-slate-800 h-[40px]"
               onChange={handleChangeQori}>
               <option value="01">Pilih Qori</option>
               <option value="01">Abdullah Al-Juhany</option>
@@ -187,7 +187,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
             </select>
             <Link
               href={`${params.nosurat}/tafsir`}
-              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer"
+              className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer dark:bg-slate-800 h-[40px]"
               onClick={() => {
                 window.scrollTo(0, 0)
                 dispatch(
@@ -211,7 +211,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
         {ayats?.map((res, i) => (
           <div
             key={res.nomorAyat}
-            className="bg-white/50 backdrop-blur-sm rounded-[10px] p-4 sm:p-5 flex flex-col gap-2"
+            className="bg-white/50 backdrop-blur-sm rounded-[10px] p-4 sm:p-5 flex flex-col gap-2 dark:bg-slate-700/50"
             ref={el => (ayatRefs.current[i] = el)}>
             <p className="font-bold text-[var(--primary)] text-[16px]">
               {detail?.nomor} : {res.nomorAyat}
