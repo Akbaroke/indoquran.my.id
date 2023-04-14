@@ -5,21 +5,25 @@ import LOGO from '../assets/logo-alquran.png'
 import Link from 'next/link'
 import ProgresBar from './ProgresBar'
 import TogleDarkMode from './TogleDarkMode'
+import { restore } from '@/redux/actions/store'
+import { useDispatch } from 'react-redux'
 
 export default function Navbar() {
   const [scrollY, setScrollY] = React.useState<number>(0)
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
     function handleScroll() {
       setScrollY(window.scrollY)
     }
+    dispatch(restore())
 
     window.addEventListener('scroll', handleScroll)
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <nav

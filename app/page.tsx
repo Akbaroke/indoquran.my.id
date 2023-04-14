@@ -3,16 +3,22 @@ import * as React from 'react'
 import useSWR from 'swr'
 import { IconSearch } from '@tabler/icons-react'
 import Link from 'next/link'
-import { ListSurat } from '@/interfaces'
+import { ListSurat, RootState } from '@/interfaces'
 import ScrollToTop from '@/components/ScrollToTop'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { modalLoading } from '@/redux/actions/modal'
 import CardSuratSkeleton from '@/components/Skeleton/CardSuratSkeleton'
+import SaveStore from '@/services/SaveStore'
 
 export default function Page() {
   const dispatch = useDispatch()
+  const stores = useSelector((state: RootState) => state.store)
   const [search, setSearch] = React.useState<string>('')
   const [searchResult, setSearchResult] = React.useState<ListSurat[]>([])
+
+  React.useEffect(() => {
+    SaveStore(stores)
+  }, [stores])
 
   const { data: listSurat, error } = useSWR<ListSurat[]>(
     `${process.env.API_URL}/surat`,

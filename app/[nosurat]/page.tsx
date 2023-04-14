@@ -1,7 +1,7 @@
 'use client'
 import * as React from 'react'
 import useSWR from 'swr'
-import { Audio, ayatSurat, detailSurat } from '@/interfaces'
+import { Audio, RootState, ayatSurat, detailSurat } from '@/interfaces'
 import {
   IconBookmark,
   IconChevronRight,
@@ -12,10 +12,16 @@ import {
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import ScrollToTop from '@/components/ScrollToTop'
-import { useDispatch } from 'react-redux'
-import { unsetModal, modalSorry, modalLoading } from '@/redux/actions/modal'
+import { useDispatch, useSelector } from 'react-redux'
+import { unsetModal, modalLoading } from '@/redux/actions/modal'
 import PlayingAnimation from '@/components/PlayingAnimation'
 import LoadingCircleAnimation from '@/components/LoadingCircleAnimation'
+import {
+  addBookmark,
+  addLike,
+  removeBookmark,
+  removeLike,
+} from '@/redux/actions/store'
 
 async function fetchData(nosurat: string) {
   const res = await fetch(`${process.env.API_URL}${nosurat}`)
@@ -24,6 +30,7 @@ async function fetchData(nosurat: string) {
 }
 
 export default function Page({ params }: { params: { nosurat: string } }) {
+  const { like, bookmark } = useSelector((state: RootState) => state.store)
   const { data, error } = useSWR(`/surat/${params.nosurat}`, fetchData)
   const [detail, setDetail] = React.useState<detailSurat | undefined>(undefined)
   const [ayats, setAyats] = React.useState<ayatSurat[]>([])
@@ -229,14 +236,60 @@ export default function Page({ params }: { params: { nosurat: string } }) {
               {res.teksIndonesia}
             </p>
             <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[25px] sm:gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6] relative">
-              <IconHeart
-                className="cursor-pointer sm:hover:text-[var(--primary)]"
-                onClick={() => dispatch(modalSorry())}
-              />
-              <IconBookmark
-                className="cursor-pointer sm:hover:text-[var(--primary)]"
-                onClick={() => dispatch(modalSorry())}
-              />
+              {like.filter(
+                data =>
+                  data.nomorSurat === detail?.nomor &&
+                  data.nomorAyat === res.nomorAyat
+              ).length > 0 ? (
+                <IconHeart
+                  className="cursor-pointer fill-red-600 text-red-600"
+                  onClick={() =>
+                    dispatch(
+                      removeLike({
+                        nomorSurat: detail?.nomor,
+                        nomorAyat: res.nomorAyat,
+                      })
+                    )
+                  }
+                />
+              ) : (
+                <IconHeart
+                  className="cursor-pointer sm:hover:text-[var(--primary)]"
+                  onClick={() =>
+                    dispatch(
+                      addLike({
+                        nomorSurat: detail?.nomor,
+                        nomorAyat: res.nomorAyat,
+                        namaSurat: detail?.namaLatin,
+                        url: `${window.location.origin}/${params.nosurat}?ayat=${res.nomorAyat}`,
+                        timestamp: Math.floor(new Date().getTime() / 1000),
+                      })
+                    )
+                  }
+                />
+              )}
+              {bookmark?.nomorSurat === detail?.nomor &&
+              bookmark?.nomorAyat === res.nomorAyat ? (
+                <IconBookmark
+                  className="cursor-pointer fill-[#E5A620] text-[#E5A620]"
+                  onClick={() => dispatch(removeBookmark())}
+                />
+              ) : (
+                <IconBookmark
+                  className="cursor-pointer sm:hover:text-[var(--primary)]"
+                  onClick={() =>
+                    dispatch(
+                      addBookmark({
+                        nomorSurat: detail?.nomor,
+                        nomorAyat: res.nomorAyat,
+                        namaSurat: detail?.namaLatin,
+                        url: `${window.location.origin}/${params.nosurat}?ayat=${res.nomorAyat}`,
+                        timestamp: Math.floor(new Date().getTime() / 1000),
+                      })
+                    )
+                  }
+                />
+              )}
               <IconLink
                 className="cursor-pointer hover:text-[var(--primary)]"
                 onClick={() => handleCopyLink(res.nomorAyat)}
