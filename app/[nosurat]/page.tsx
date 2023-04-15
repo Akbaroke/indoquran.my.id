@@ -1,7 +1,7 @@
 'use client'
 import * as React from 'react'
 import useSWR from 'swr'
-import { Audio, ayatSurat, detailSurat } from '@/interfaces'
+import { Audio, RootState, ayatSurat, detailSurat } from '@/interfaces'
 import {
   IconBookmark,
   IconChevronRight,
@@ -12,10 +12,17 @@ import {
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import ScrollToTop from '@/components/ScrollToTop'
-import { useDispatch } from 'react-redux'
-import { unsetModal, modalSorry, modalLoading } from '@/redux/actions/modal'
+import { useDispatch, useSelector } from 'react-redux'
+import { unsetModal, modalLoading } from '@/redux/actions/modal'
 import PlayingAnimation from '@/components/PlayingAnimation'
 import LoadingCircleAnimation from '@/components/LoadingCircleAnimation'
+import {
+  addBookmark,
+  addLike,
+  removeBookmark,
+  removeLike,
+} from '@/redux/actions/store'
+import { useRouter } from 'next/navigation'
 
 async function fetchData(nosurat: string) {
   const res = await fetch(`${process.env.API_URL}${nosurat}`)
@@ -24,6 +31,7 @@ async function fetchData(nosurat: string) {
 }
 
 export default function Page({ params }: { params: { nosurat: string } }) {
+  const { like, bookmark } = useSelector((state: RootState) => state.store)
   const { data, error } = useSWR(`/surat/${params.nosurat}`, fetchData)
   const [detail, setDetail] = React.useState<detailSurat | undefined>(undefined)
   const [ayats, setAyats] = React.useState<ayatSurat[]>([])
@@ -38,6 +46,25 @@ export default function Page({ params }: { params: { nosurat: string } }) {
   const [ayatPlay, setAyatPlay] = React.useState<number>(0)
   const audio = audioRef.current
   const dispatch = useDispatch()
+  const router = useRouter()
+
+  React.useEffect(() => {
+    dispatch(unsetModal())
+  }, [dispatch])
+
+  React.useEffect(() => {
+    const regex = /^(1[0-1][0-4]|[1-9][0-9]?)$/
+    if (regex.test(params.nosurat) && data) {
+      const timeoutId = setTimeout(() => {
+        dispatch(unsetModal())
+      }, 1000)
+
+      return () => clearTimeout(timeoutId)
+    }
+    if (!regex.test(params.nosurat) || error) {
+      router.push('/')
+    }
+  }, [data, dispatch, error, params.nosurat, router])
 
   React.useEffect(() => {
     setDetail(data)
@@ -145,14 +172,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
     alert('Link copied successfully')
   }
 
-  if (error) return <div>Failed to load data</div>
-  if (!data) return <div>Loading...</div>
-  if (data) {
-    setTimeout(() => {
-      dispatch(unsetModal())
-    }, 1000)
-  }
-
+  if (!data) return <p>Loading...</p>
   return (
     <div className="max-w-[1107px] h-max m-auto relative">
       <div className="bg-white p-[22px] rounded-[10px] text-center dark:bg-slate-700/50">
@@ -201,7 +221,12 @@ export default function Page({ params }: { params: { nosurat: string } }) {
         </div>
       </div>
       <div className="flex gap-2 text-[var(--primary)] font-semibold items-center py-4 px-2 text-[14px]">
-        <Link href="/" onClick={() => window.scrollTo(0, 0)}>
+        <Link
+          href="/"
+          onClick={() => {
+            window.scrollTo(0, 0)
+            dispatch(modalLoading())
+          }}>
           Daftar Surat
         </Link>
         <IconChevronRight className="h-4" />
@@ -229,14 +254,60 @@ export default function Page({ params }: { params: { nosurat: string } }) {
               {res.teksIndonesia}
             </p>
             <div className="flex pt-[15px] px-[15px] mt-[15px] gap-[25px] sm:gap-[40px] flex-wrap border-t-[1.5px] border-t-[#f4f4f4] text-[#A5BCC6] relative">
-              <IconHeart
-                className="cursor-pointer sm:hover:text-[var(--primary)]"
-                onClick={() => dispatch(modalSorry())}
-              />
-              <IconBookmark
-                className="cursor-pointer sm:hover:text-[var(--primary)]"
-                onClick={() => dispatch(modalSorry())}
-              />
+              {like.filter(
+                data =>
+                  data.nomorSurat === detail?.nomor &&
+                  data.nomorAyat === res.nomorAyat
+              ).length > 0 ? (
+                <IconHeart
+                  className="cursor-pointer fill-red-600 text-red-600"
+                  onClick={() =>
+                    dispatch(
+                      removeLike({
+                        nomorSurat: detail?.nomor,
+                        nomorAyat: res.nomorAyat,
+                      })
+                    )
+                  }
+                />
+              ) : (
+                <IconHeart
+                  className="cursor-pointer sm:hover:text-[var(--primary)]"
+                  onClick={() =>
+                    dispatch(
+                      addLike({
+                        nomorSurat: detail?.nomor,
+                        nomorAyat: res.nomorAyat,
+                        namaSurat: detail?.namaLatin,
+                        url: `/${params.nosurat}?ayat=${res.nomorAyat}`,
+                        timestamp: Math.floor(new Date().getTime()),
+                      })
+                    )
+                  }
+                />
+              )}
+              {bookmark?.nomorSurat === detail?.nomor &&
+              bookmark?.nomorAyat === res.nomorAyat ? (
+                <IconBookmark
+                  className="cursor-pointer fill-[#E5A620] text-[#E5A620]"
+                  onClick={() => dispatch(removeBookmark())}
+                />
+              ) : (
+                <IconBookmark
+                  className="cursor-pointer sm:hover:text-[var(--primary)]"
+                  onClick={() =>
+                    dispatch(
+                      addBookmark({
+                        nomorSurat: detail?.nomor,
+                        nomorAyat: res.nomorAyat,
+                        namaSurat: detail?.namaLatin,
+                        url: `/${params.nosurat}?ayat=${res.nomorAyat}`,
+                        timestamp: Math.floor(new Date().getTime() / 1000),
+                      })
+                    )
+                  }
+                />
+              )}
               <IconLink
                 className="cursor-pointer hover:text-[var(--primary)]"
                 onClick={() => handleCopyLink(res.nomorAyat)}

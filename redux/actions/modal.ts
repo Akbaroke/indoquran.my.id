@@ -1,6 +1,6 @@
 import ActionType from '../actionType'
 
-export const modalLoading = (message: string) => ({
+export const modalLoading = (message?: string) => ({
   type: ActionType.LOADING_OPEN,
   payload: {
     message: message,

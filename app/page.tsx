@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { ListSurat } from '@/interfaces'
 import ScrollToTop from '@/components/ScrollToTop'
 import { useDispatch } from 'react-redux'
-import { modalLoading } from '@/redux/actions/modal'
+import { modalLoading, unsetModal } from '@/redux/actions/modal'
 import CardSuratSkeleton from '@/components/Skeleton/CardSuratSkeleton'
 
 export default function Page() {
@@ -30,6 +30,10 @@ export default function Page() {
       setSearchResult(listSurat || [])
     }
   }, [listSurat, search])
+
+  React.useEffect(() => {
+    dispatch(unsetModal())
+  }, [dispatch])
 
   function filterSurat(search: string, suratList: ListSurat[]) {
     const filteredList = suratList.filter(
@@ -56,7 +60,7 @@ export default function Page() {
         />
       </div>
       {!listSurat ? (
-        <CardSuratSkeleton cards={20} />
+        <CardSuratSkeleton cards={114} />
       ) : (
         <div className="flex flex-wrap gap-[8px] sm:gap-[15px] justify-center sm:mt-5 mt-3">
           {searchResult.map((data, index) => (
