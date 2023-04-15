@@ -6,9 +6,13 @@ import Link from 'next/link'
 import ProgresBar from './ProgresBar'
 import TogleDarkMode from './TogleDarkMode'
 import { restore } from '@/redux/actions/store'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/interfaces'
+import SaveStore from '@/services/SaveStore'
+import ButtonNavbar from './ButtonNavbar'
 
 export default function Navbar() {
+  const stores = useSelector((state: RootState) => state.store)
   const [scrollY, setScrollY] = React.useState<number>(0)
   const dispatch = useDispatch()
 
@@ -24,6 +28,10 @@ export default function Navbar() {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [dispatch])
+
+  React.useEffect(() => {
+    SaveStore(stores)
+  }, [stores])
 
   return (
     <nav
@@ -47,7 +55,10 @@ export default function Navbar() {
             IndoQur`an
           </h1>
         </Link>
-        <TogleDarkMode />
+        <div className="flex items-center gap-5">
+          <TogleDarkMode />
+          <ButtonNavbar />
+        </div>
       </div>
     </nav>
   )

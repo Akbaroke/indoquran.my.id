@@ -1,22 +1,19 @@
 'use client'
+import { Switch } from '@headlessui/react'
 import { useTheme } from 'next-themes'
 import * as React from 'react'
 
 function TogleDarkMode() {
-  const { theme, setTheme } = useTheme()
+  const { setTheme } = useTheme()
   const [isChecked, setIsChecked] = React.useState<boolean>(false)
 
   React.useEffect(() => {
-    if (theme === 'dark') {
-      setIsChecked(true)
+    if (isChecked) {
+      setTheme('dark')
     } else {
-      setIsChecked(false)
+      setTheme('light')
     }
-  }, [theme])
-
-  const switchToggleClass = `w-6 h-6 sm:w-8 sm:h-8 relative rounded-full transition duration-500 transform p-1 text-white ${
-    isChecked ? 'bg-yellow-500 translate-x-full' : 'bg-gray-700 -translate-x-2'
-  }`
+  }, [isChecked, setTheme])
 
   const switchIcon = !isChecked ? (
     <svg
@@ -47,13 +44,24 @@ function TogleDarkMode() {
   )
 
   return (
-    <button
-      className="w-[35px] h-5 sm:w-[50px] sm:h-7 rounded-full bg-slate-400 flex items-center transition duration-300 focus:outline-none shadow mr-4 sm:mr-2"
-      onClick={() =>
-        theme === 'light' ? setTheme('dark') : setTheme('light')
-      }>
-      <div className={switchToggleClass}>{switchIcon}</div>
-    </button>
+    <div>
+      <Switch
+        checked={isChecked}
+        onChange={setIsChecked}
+        className="
+          relative flex w-[45px] h-[25px] sm:w-[55px] sm:h-[30px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-slate-400 items-center">
+        <div
+          aria-hidden="true"
+          className={`${
+            isChecked
+              ? 'translate-x-[18px] sm:translate-x-[25px] bg-yellow-500'
+              : 'translate-x-0 bg-gray-700'
+          }
+            pointer-events-none flex w-[23px] h-[23px] sm:w-[28px] sm:h-[28px] transform rounded-full shadow-lg ring-0 transition duration-200 ease-in-out text-white justify-center items-center p-1`}>
+          {switchIcon}
+        </div>
+      </Switch>
+    </div>
   )
 }
 export default TogleDarkMode

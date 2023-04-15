@@ -22,6 +22,7 @@ import {
   removeBookmark,
   removeLike,
 } from '@/redux/actions/store'
+import { useRouter } from 'next/navigation'
 
 async function fetchData(nosurat: string) {
   const res = await fetch(`${process.env.API_URL}${nosurat}`)
@@ -45,6 +46,25 @@ export default function Page({ params }: { params: { nosurat: string } }) {
   const [ayatPlay, setAyatPlay] = React.useState<number>(0)
   const audio = audioRef.current
   const dispatch = useDispatch()
+  const router = useRouter()
+
+  React.useEffect(() => {
+    dispatch(unsetModal())
+  }, [dispatch])
+
+  React.useEffect(() => {
+    const regex = /^(1[0-1][0-4]|[1-9][0-9]?)$/
+    if (regex.test(params.nosurat) && data) {
+      const timeoutId = setTimeout(() => {
+        dispatch(unsetModal())
+      }, 1000)
+
+      return () => clearTimeout(timeoutId)
+    }
+    if (!regex.test(params.nosurat) || error || !data) {
+      router.push('/')
+    }
+  }, [data, dispatch, error, params.nosurat, router])
 
   React.useEffect(() => {
     setDetail(data)
@@ -152,14 +172,6 @@ export default function Page({ params }: { params: { nosurat: string } }) {
     alert('Link copied successfully')
   }
 
-  if (error) return <div>Failed to load data</div>
-  if (!data) return <div>Loading...</div>
-  if (data) {
-    setTimeout(() => {
-      dispatch(unsetModal())
-    }, 1000)
-  }
-
   return (
     <div className="max-w-[1107px] h-max m-auto relative">
       <div className="bg-white p-[22px] rounded-[10px] text-center dark:bg-slate-700/50">
@@ -208,7 +220,12 @@ export default function Page({ params }: { params: { nosurat: string } }) {
         </div>
       </div>
       <div className="flex gap-2 text-[var(--primary)] font-semibold items-center py-4 px-2 text-[14px]">
-        <Link href="/" onClick={() => window.scrollTo(0, 0)}>
+        <Link
+          href="/"
+          onClick={() => {
+            window.scrollTo(0, 0)
+            dispatch(modalLoading())
+          }}>
           Daftar Surat
         </Link>
         <IconChevronRight className="h-4" />
@@ -261,8 +278,8 @@ export default function Page({ params }: { params: { nosurat: string } }) {
                         nomorSurat: detail?.nomor,
                         nomorAyat: res.nomorAyat,
                         namaSurat: detail?.namaLatin,
-                        url: `${window.location.origin}/${params.nosurat}?ayat=${res.nomorAyat}`,
-                        timestamp: Math.floor(new Date().getTime() / 1000),
+                        url: `/${params.nosurat}?ayat=${res.nomorAyat}`,
+                        timestamp: Math.floor(new Date().getTime()),
                       })
                     )
                   }
@@ -283,7 +300,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
                         nomorSurat: detail?.nomor,
                         nomorAyat: res.nomorAyat,
                         namaSurat: detail?.namaLatin,
-                        url: `${window.location.origin}/${params.nosurat}?ayat=${res.nomorAyat}`,
+                        url: `/${params.nosurat}?ayat=${res.nomorAyat}`,
                         timestamp: Math.floor(new Date().getTime() / 1000),
                       })
                     )

@@ -128,7 +128,12 @@ export default function Page({ params }: { params: { nosurat: string } }) {
         </div>
       </div>
       <div className="flex gap-2 text-[var(--primary)] font-semibold items-center py-4 px-2 text-[14px]">
-        <Link href="/" onClick={() => window.scrollTo(0, 0)}>
+        <Link
+          href="/"
+          onClick={() => {
+            window.scrollTo(0, 0)
+            dispatch(modalLoading())
+          }}>
           Daftar Surat
         </Link>
         <IconChevronRight className="h-4" />

@@ -3,22 +3,16 @@ import * as React from 'react'
 import useSWR from 'swr'
 import { IconSearch } from '@tabler/icons-react'
 import Link from 'next/link'
-import { ListSurat, RootState } from '@/interfaces'
+import { ListSurat } from '@/interfaces'
 import ScrollToTop from '@/components/ScrollToTop'
-import { useDispatch, useSelector } from 'react-redux'
-import { modalLoading } from '@/redux/actions/modal'
+import { useDispatch } from 'react-redux'
+import { modalLoading, unsetModal } from '@/redux/actions/modal'
 import CardSuratSkeleton from '@/components/Skeleton/CardSuratSkeleton'
-import SaveStore from '@/services/SaveStore'
 
 export default function Page() {
   const dispatch = useDispatch()
-  const stores = useSelector((state: RootState) => state.store)
   const [search, setSearch] = React.useState<string>('')
   const [searchResult, setSearchResult] = React.useState<ListSurat[]>([])
-
-  React.useEffect(() => {
-    SaveStore(stores)
-  }, [stores])
 
   const { data: listSurat, error } = useSWR<ListSurat[]>(
     `${process.env.API_URL}/surat`,
@@ -36,6 +30,10 @@ export default function Page() {
       setSearchResult(listSurat || [])
     }
   }, [listSurat, search])
+
+  React.useEffect(() => {
+    dispatch(unsetModal())
+  }, [dispatch])
 
   function filterSurat(search: string, suratList: ListSurat[]) {
     const filteredList = suratList.filter(
@@ -62,7 +60,7 @@ export default function Page() {
         />
       </div>
       {!listSurat ? (
-        <CardSuratSkeleton cards={20} />
+        <CardSuratSkeleton cards={114} />
       ) : (
         <div className="flex flex-wrap gap-[8px] sm:gap-[15px] justify-center sm:mt-5 mt-3">
           {searchResult.map((data, index) => (
