@@ -33,7 +33,7 @@ export default function Page() {
           <p>Suka</p>
         </div>
         <p className="text-[var(--primary)] font-semibold text-[14px]">
-          Jumlah {0}
+          Jumlah {like.length}
         </p>
       </div>
       <div className="h-max flex flex-col gap-4">
