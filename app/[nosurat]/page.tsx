@@ -61,7 +61,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
 
       return () => clearTimeout(timeoutId)
     }
-    if (!regex.test(params.nosurat) || error || !data) {
+    if (!regex.test(params.nosurat) || error) {
       router.push('/')
     }
   }, [data, dispatch, error, params.nosurat, router])
@@ -172,6 +172,7 @@ export default function Page({ params }: { params: { nosurat: string } }) {
     alert('Link copied successfully')
   }
 
+  if (!data) return <p>Loading...</p>
   return (
     <div className="max-w-[1107px] h-max m-auto relative">
       <div className="bg-white p-[22px] rounded-[10px] text-center dark:bg-slate-700/50">

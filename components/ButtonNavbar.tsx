@@ -1,24 +1,26 @@
+'use client'
 import * as React from 'react'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { IconMenu2, IconHeartFilled, IconBookmark } from '@tabler/icons-react'
+import { IconHeartFilled, IconBookmark } from '@tabler/icons-react'
 import Link from 'next/link'
 import { modalLoading } from '@/redux/actions/modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/interfaces'
-import { useRouter } from 'next/router'
+import getPathLocation from '@/utils/GetPathLocation'
+import { useRouter } from 'next/navigation'
+import { IconCategory2 } from '@tabler/icons-react'
 
 export default function ButtonNavbar() {
   const dispatch = useDispatch()
   const { bookmark } = useSelector((state: RootState) => state.store)
-  const router = useRouter()
-  const surat = router.asPath.split('/')[1]
+  const route = useRouter()
 
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="text-[var(--primary)] rounded cursor-pointer bg-gray-200 dark:bg-gray-700 px-3 py-2">
-          <IconMenu2 className="h-5 w-5" aria-hidden="true" />
+        <Menu.Button className="text-[var(--primary)] rounded cursor-pointer bg-gray-200 dark:bg-gray-700 px-2 py-2 sm:px-3 sm:py-2">
+          <IconCategory2 className="h-5 w-5" aria-hidden="true" />
         </Menu.Button>
       </div>
       <Transition
@@ -50,25 +52,45 @@ export default function ButtonNavbar() {
               )}
             </Menu.Item>
             <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={bookmark ? (bookmark.url as string) : ''}
-                  className={`${
-                    active ? 'bg-gray-200 dark:bg-gray-800' : ''
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  onClick={() => {
-                    window.scrollTo(0, 0)
-                    bookmark &&
-                      dispatch(
-                        modalLoading(
-                          `proses membuka surat ${bookmark.namaSurat} ayat ${bookmark.nomorAyat}`
+              {({ active }) =>
+                parseInt(getPathLocation()) === bookmark?.nomorSurat ? (
+                  <div
+                    className={`${
+                      active ? 'bg-gray-200 dark:bg-gray-800' : ''
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer`}
+                    onClick={() => {
+                      route.push('/')
+                      bookmark &&
+                        dispatch(
+                          modalLoading(
+                            `proses membuka surat ${bookmark.namaSurat} ayat ${bookmark.nomorAyat}`
+                          )
                         )
-                      )
-                  }}>
-                  <IconBookmark className="mr-2 h-5 w-5 text-[var(--primary)] fill-[var(--primary)]" />
-                  Buka Penanda
-                </Link>
-              )}
+                      window.location.href = `${window.location.origin}${bookmark.url}`
+                    }}>
+                    <IconBookmark className="mr-2 h-5 w-5 text-[var(--primary)] fill-[var(--primary)]" />
+                    Buka Penanda
+                  </div>
+                ) : (
+                  <Link
+                    href={bookmark ? (bookmark.url as string) : ''}
+                    className={`${
+                      active ? 'bg-gray-200 dark:bg-gray-800' : ''
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer`}
+                    onClick={() => {
+                      window.scrollTo(0, 0)
+                      bookmark &&
+                        dispatch(
+                          modalLoading(
+                            `proses membuka surat ${bookmark.namaSurat} ayat ${bookmark.nomorAyat}`
+                          )
+                        )
+                    }}>
+                    <IconBookmark className="mr-2 h-5 w-5 text-[var(--primary)] fill-[var(--primary)]" />
+                    Buka Penanda
+                  </Link>
+                )
+              }
             </Menu.Item>
           </div>
         </Menu.Items>
