@@ -7,5 +7,6 @@ const ActionType = {
   REMOVE_LIKE: 'REMOVE_LIKE',
   REMOVE_BOOKMARK: 'REMOVE_BOOKMARK',
   RESTORE: 'RESTORE',
+  SET_THEME: 'SET_THEME',
 }
 export default ActionType

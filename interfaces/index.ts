@@ -46,6 +46,12 @@ export interface ActionModal {
     message: string
   }
 }
+export interface ActionTheme {
+  type: typeof ActionType.SET_THEME
+  payload: {
+    mode: string
+  }
+}
 export interface ActionStore {
   type: typeof ActionType.ADD_LIKE
   payload: Like
@@ -61,6 +67,9 @@ export interface StateStore {
   like: Like[]
   bookmark: Like | null
 }
+export interface StateTheme {
+  mode: string
+}
 
 export interface Like {
   nomorSurat: number | undefined
@@ -73,4 +82,5 @@ export interface Like {
 export interface RootState {
   modal: StateModal
   store: StateStore
+  theme: StateTheme
 }

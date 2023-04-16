@@ -39,14 +39,12 @@ export default function ButtonNavbar() {
                   href="/suka"
                   className={`${
                     active ? 'bg-gray-200 dark:bg-gray-800' : ''
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}>
-                  <IconHeartFilled
-                    className="mr-2 h-5 w-5 text-[var(--primary)] fill-[var(--primary)]"
-                    onClick={() => {
-                      window.scrollTo(0, 0)
-                      dispatch(modalLoading())
-                    }}
-                  />
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  onClick={() => {
+                    window.scrollTo(0, 0)
+                    dispatch(modalLoading())
+                  }}>
+                  <IconHeartFilled className="mr-2 h-5 w-5 fill-red-600 text-red-600" />
                   Daftar Suka
                 </Link>
               )}
@@ -68,7 +66,7 @@ export default function ButtonNavbar() {
                         )
                       window.location.href = `${window.location.origin}${bookmark.url}`
                     }}>
-                    <IconBookmark className="mr-2 h-5 w-5 text-[var(--primary)] fill-[var(--primary)]" />
+                    <IconBookmark className="mr-2 h-5 w-5 fill-[#E5A620] text-[#E5A620]" />
                     Buka Penanda
                   </div>
                 ) : (
@@ -86,7 +84,7 @@ export default function ButtonNavbar() {
                           )
                         )
                     }}>
-                    <IconBookmark className="mr-2 h-5 w-5 text-[var(--primary)] fill-[var(--primary)]" />
+                    <IconBookmark className="mr-2 h-5 w-5 fill-[#E5A620] text-[#E5A620]" />
                     Buka Penanda
                   </Link>
                 )

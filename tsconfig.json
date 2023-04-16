@@ -28,9 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/page.tsx",
-    "utils/Encrypt.js",
-    "utils/Encrypt.js"
+    "app/page.tsx"
   ],
   "exclude": ["node_modules"]
 }

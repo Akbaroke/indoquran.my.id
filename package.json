@@ -27,6 +27,7 @@
     "react-content-loader": "^6.2.1",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
+    "react-share": "^4.4.1",
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "sass": "^1.60.0",

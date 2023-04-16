@@ -9,6 +9,7 @@ import {
   IconHeadphones,
   IconHeart,
   IconLink,
+  IconShare,
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import ScrollToTop from '@/components/ScrollToTop'
@@ -23,6 +24,7 @@ import {
   removeLike,
 } from '@/redux/actions/store'
 import { useRouter } from 'next/navigation'
+import { WhatsappShareButton } from 'react-share'
 
 async function fetchData(nosurat: string) {
   const res = await fetch(`${process.env.API_URL}${nosurat}`)
@@ -171,6 +173,25 @@ export default function Page({ params }: { params: { nosurat: string } }) {
     alert('Link copied successfully')
   }
 
+  const messageShare = (
+    ayat: number,
+    teksArab: string,
+    teksIndonesia: string
+  ): string => {
+    return `*Assalamualaikum Izin Share*
+Allah SWT berfirman:
+
+${teksArab}
+
+Yang Artinya :
+${teksIndonesia}
+
+_(Qs. ${detail?.namaLatin} ${params.nosurat}: Ayat ${ayat})_
+
+Link Website :
+${window.location.origin}/${params.nosurat}?ayat=${ayat}`
+  }
+
   if (!data) return <p>Loading...</p>
   return (
     <div className="max-w-[1107px] h-max m-auto relative">
@@ -307,6 +328,14 @@ export default function Page({ params }: { params: { nosurat: string } }) {
                   }
                 />
               )}
+              <WhatsappShareButton
+                url={messageShare(
+                  res.nomorAyat,
+                  res.teksArab,
+                  res.teksIndonesia
+                )}>
+                <IconShare className="cursor-pointer hover:text-[var(--primary)]" />
+              </WhatsappShareButton>
               <IconLink
                 className="cursor-pointer hover:text-[var(--primary)]"
                 onClick={() => handleCopyLink(res.nomorAyat)}
