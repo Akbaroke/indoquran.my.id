@@ -16,6 +16,11 @@ function ToggleDarkMode() {
     document.documentElement.classList.remove('dark', 'light')
     document.documentElement.classList.add(mode)
     document.documentElement.setAttribute('style', `color-scheme: ${mode};`)
+    if (mode === 'light') {
+      setIsChecked(false)
+    } else {
+      setIsChecked(true)
+    }
   }, [mode])
 
   const toggleClick = () => {
