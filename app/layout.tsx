@@ -5,7 +5,6 @@ import './globals.css'
 import Modal from '@/components/Modal'
 import { Provider } from 'react-redux'
 import store from '@/redux'
-import { ThemeProvider } from 'next-themes'
 
 export default function RootLayout({
   children,
@@ -20,11 +19,9 @@ export default function RootLayout({
       </head>
       <Provider store={store}>
         <body className="bg-gray-100 dark:bg-slate-800">
-          <ThemeProvider attribute="class" enableSystem={false}>
-            <Navbar />
-            <Modal />
-            <div className="py-2 px-2 sm:py-5 sm:px-5">{children}</div>
-          </ThemeProvider>
+          <Navbar />
+          <Modal />
+          <div className="py-2 px-2 sm:py-5 sm:px-5">{children}</div>
         </body>
       </Provider>
     </html>

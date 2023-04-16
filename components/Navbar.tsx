@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/interfaces'
 import SaveStore from '@/services/SaveStore'
 import ButtonNavbar from './ButtonNavbar'
+import { setTheme } from '@/redux/actions/theme'
 
 export default function Navbar() {
   const stores = useSelector((state: RootState) => state.store)
@@ -21,6 +22,7 @@ export default function Navbar() {
       setScrollY(window.scrollY)
     }
     dispatch(restore())
+    dispatch(setTheme(localStorage.getItem('theme') as string))
 
     window.addEventListener('scroll', handleScroll)
 
