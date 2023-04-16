@@ -53,18 +53,17 @@ export default function Page({ params }: { params: { nosurat: string } }) {
   }, [dispatch])
 
   React.useEffect(() => {
-    const regex = /^(1[0-1][0-4]|[1-9][0-9]?)$/
-    if (regex.test(params.nosurat) && data) {
+    if (data) {
       const timeoutId = setTimeout(() => {
         dispatch(unsetModal())
       }, 1000)
 
       return () => clearTimeout(timeoutId)
     }
-    if (!regex.test(params.nosurat) || error) {
+    if (error) {
       router.push('/')
     }
-  }, [data, dispatch, error, params.nosurat, router])
+  }, [data, dispatch, error, router])
 
   React.useEffect(() => {
     setDetail(data)
