@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { modalLoading } from '@/redux/actions/modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/interfaces'
-import GetPathLocation from '@/utils/getPathLocation'
+import PathLocation from '@/utils/PathLocation'
 import { useRouter } from 'next/navigation'
 import { IconCategory2 } from '@tabler/icons-react'
 
@@ -51,7 +51,7 @@ export default function ButtonNavbar() {
             </Menu.Item>
             <Menu.Item>
               {({ active }) =>
-                parseInt(GetPathLocation()) === bookmark?.nomorSurat ? (
+                parseInt(PathLocation()) === bookmark?.nomorSurat ? (
                   <div
                     className={`${
                       active ? 'bg-gray-200 dark:bg-gray-800' : ''
