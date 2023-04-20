@@ -16,6 +16,7 @@ export default function RootLayout({
       <head>
         <title>IndoQur`an</title>
         <meta name="description" content="Create By Muhammad Akbar" />
+        <meta name="google" content="notranslate" />
       </head>
       <Provider store={store}>
         <body className="bg-gray-100 dark:bg-slate-800">
