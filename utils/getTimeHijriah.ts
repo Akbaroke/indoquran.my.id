@@ -1,21 +1,27 @@
+import { toHijri } from 'hijri-converter'
+
 export default function getTimeHijriah(): string {
-  const date: Date = new Date()
-  const timestamp: number = Math.floor(date.getTime() / 1000)
-  const hijriah: Intl.DateTimeFormat = new Intl.DateTimeFormat(
-    'en-US-u-ca-islamic',
-    {
-      timeZone: 'UTC',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }
-  )
-  const hijriahDate: string = hijriah.format(timestamp * 1000)
+  const now = new Date()
+  const year = now.toLocaleDateString('id-ID', { year: 'numeric' })
+  const month = now.toLocaleDateString('id-ID', { month: 'numeric' })
+  const day = now.toLocaleDateString('id-ID', { day: 'numeric' })
 
-  const formattedHijriahDate: string = hijriahDate
-    .replace(/(\w+)\s(\d{1,2}),\s(\d{4})/g, '$2 $1, $3')
-    .replace('AH', '')
-    .replace('BC', '')
+  const result = toHijri(parseInt(year), parseInt(month), parseInt(day))
 
-  return formattedHijriahDate
+  const islamicMonths: { [key: number]: string } = {
+    1: 'Muharram',
+    2: 'Safar',
+    3: 'Rabiul Awal',
+    4: 'Rabiul Akhir',
+    5: 'Jumadil Awal',
+    6: 'Jumadil Akhir',
+    7: 'Rajab',
+    8: "Sya'ban",
+    9: 'Ramadan',
+    10: 'Syawal',
+    11: 'Zulkaidah',
+    12: 'Dzulhijjah',
+  }
+  const monthName = islamicMonths[result.hm]
+  return `${result.hd} ${monthName}, ${result.hy}`
 }
