@@ -1,5 +1,5 @@
 'use client'
-const getPathLocation = (): string => {
+const GetPathLocation = (): string => {
   if (typeof window !== 'undefined') {
     return window.location.pathname.split('/')[1]
   } else {
@@ -7,4 +7,4 @@ const getPathLocation = (): string => {
   }
 }
 
-export default getPathLocation
+export default GetPathLocation
