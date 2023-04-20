@@ -15,6 +15,7 @@ export default function getTimeHijriah(): string {
   const formattedHijriahDate: string = hijriahDate
     .replace(/(\w+)\s(\d{1,2}),\s(\d{4})/g, '$2 $1, $3')
     .replace('AH', '')
+    .replace('BC', '')
 
   return formattedHijriahDate
 }

@@ -34,7 +34,7 @@ interface ListArea {
 
 export default function CardJadwalSholat() {
   const timeDate = getRealtimeDate()
-  const timeHijriah = getTimeHijriah()
+  const timeHijriah = getTimeHijriah() as string
   const date = getCurrentTime()
   const [locationId, setLocationId] = React.useState('1301')
   const [area, setArea] = React.useState('...')
@@ -94,7 +94,10 @@ export default function CardJadwalSholat() {
           </div>
           <div className="hidden sm:flex items-end align-middle flex-col -gap-1">
             <p className="font-normal text-[12px] sm:text-[16px]">{timeDate}</p>
-            <p className="font-semibold text-[12px] sm:text-[16px]">
+            <p
+              className="font-semibold text-[12px] sm:text-[16px]"
+              translate="no"
+              style={{ contentVisibility: 'auto' }}>
               {timeHijriah}
             </p>
           </div>
@@ -159,7 +162,10 @@ export default function CardJadwalSholat() {
         </div>
         <div className="sm:hidden flex items-center align-middle flex-col -gap-1 text-center">
           <p className="font-normal text-[12px] sm:text-[16px]">{timeDate}</p>
-          <p className="font-semibold text-[12px] sm:text-[16px]">
+          <p
+            className="font-semibold text-[12px] sm:text-[16px]"
+            translate="no"
+            style={{ contentVisibility: 'auto' }}>
             {timeHijriah}
           </p>
         </div>
