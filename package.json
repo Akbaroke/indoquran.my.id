@@ -21,6 +21,7 @@
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "hijri-converter": "^1.1.1",
     "next": "13.2.4",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
@@ -31,6 +32,7 @@
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "sass": "^1.60.0",
+    "swiper": "^9.2.3",
     "swr": "^2.1.1",
     "typescript": "5.0.2"
   },

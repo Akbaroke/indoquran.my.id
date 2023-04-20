@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { modalLoading } from '@/redux/actions/modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/interfaces'
-import getPathLocation from '@/utils/GetPathLocation'
+import getPathLocation from '@/utils/getPathLocation'
 import { useRouter } from 'next/navigation'
 import { IconCategory2 } from '@tabler/icons-react'
 

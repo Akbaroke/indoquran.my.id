@@ -8,6 +8,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import { useDispatch } from 'react-redux'
 import { modalLoading, unsetModal } from '@/redux/actions/modal'
 import CardSuratSkeleton from '@/components/Skeleton/CardSuratSkeleton'
+import CardJadwalSholat from '@/components/CardJadwalSholat'
 
 export default function Page() {
   const dispatch = useDispatch()
@@ -49,6 +50,7 @@ export default function Page() {
 
   return (
     <div className="max-w-[1100px] m-auto">
+      <CardJadwalSholat />
       <div className="relative bg-white w-full h-[40px] sm:h-[50px] flex items-center px-[13px] sm:px-[20px] rounded-lg dark:bg-slate-700">
         <IconSearch className="absolute text-[var(--primary)] w-5 h-5 sm:w-6 sm:h-6" />
         <input
