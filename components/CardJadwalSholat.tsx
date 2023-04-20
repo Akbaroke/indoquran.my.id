@@ -2,7 +2,7 @@
 import * as React from 'react'
 import {
   IconChevronsDown,
-  IconExternalLink,
+  // IconExternalLink,
   IconMapPinFilled,
 } from '@tabler/icons-react'
 import getRealtimeDate from '@/utils/getRealtimeDate'
@@ -11,8 +11,8 @@ import 'swiper/css'
 import SwiperComponent from './SwiperComponent'
 import CardJamSholat from './CardJamSholat'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { modalSorry } from '@/redux/actions/modal'
+// import { useDispatch } from 'react-redux'
+// import { modalSorry } from '@/redux/actions/modal'
 import getNearestPrayerTime from '@/utils/getNearestPrayerTime'
 import { IconChevronsUp } from '@tabler/icons-react'
 
@@ -42,7 +42,7 @@ export default function CardJadwalSholat() {
   const [listArea, setListArea] = React.useState<ListArea[]>()
   const [sholatActive, setSholatActive] = React.useState('')
   const [isOpenJadwal, setIsOpenJadwal] = React.useState(false)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   React.useEffect(() => {
     const getDataListArea = async () => {
@@ -78,7 +78,7 @@ export default function CardJadwalSholat() {
     <div className="bg-white rounded-[10px] p-6 mb-5 dark:bg-slate-700 relative">
       <div
         className={`${
-          isOpenJadwal ? 'h-max' : 'h-[60px] sm:h-[50px] overflow-hidden'
+          isOpenJadwal ? 'h-max' : 'h-[60px] sm:h-[55px] overflow-hidden'
         }`}>
         <div className="flex justify-center sm:justify-between items-center">
           <div className="flex flex-col -gap-1">
@@ -163,7 +163,7 @@ export default function CardJadwalSholat() {
             {timeHijriah}
           </p>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-[20px] mt-[10px] pt-[15px] m-auto border-t border-t-[#f4f4f4]">
+        <div className="flex flex-wrap justify-center items-center gap-[20px] mt-[10px] pt-[15px] m-auto border-t border-t-[#f4f4f4] dark:border-t-[#f4f4f4]/50 w-2/3 ">
           <select
             className="py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] h-[40px] outline-none cursor-pointer dark:bg-slate-800"
             value={locationId}
@@ -175,7 +175,7 @@ export default function CardJadwalSholat() {
               </option>
             ))}
           </select>
-          <div
+          {/* <div
             className="flex justify-between items-center py-[7px] px-[14px] bg-[#f4f6f8] text-[var(--primary)] rounded-[10px] w-[194px] cursor-pointer dark:bg-slate-800 h-[40px]"
             onClick={() => {
               window.scrollTo(0, 0)
@@ -183,7 +183,7 @@ export default function CardJadwalSholat() {
             }}>
             <p>List Jadwal</p>
             <IconExternalLink className="w-[20px] h-[20px] stroke-[1.5]" />
-          </div>
+          </div> */}
         </div>
       </div>
       <div
