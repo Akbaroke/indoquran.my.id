@@ -1,8 +1,26 @@
-![Logo](https://cdn.discordapp.com/attachments/1015028360759492710/1104417797750128670/indoQuran.png)
+<div align="center">
+  <a href="https://www.indoquran.my.id">
+    <img src="https://cdn.discordapp.com/attachments/1015028360759492710/1104417797750128670/indoQuran.png" alt="Logo" width="300">
+  </a>
+  <h2 style="font-size:30px;" align="center"><strong>IndoQuran</strong></h2>
+  <p align="center">
+    <a href="https://github.com/fajarspace/stuff-css/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/fajarspace/stuff-css/issues">Request Feature</a>
+  </p>
 
-# IndoQuran
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+</div>
+
+## Introduction
 
 IndoQuran adalah sebuah aplikasi web alquran yang menyediakan fitur untuk membaca, mendengarkan murotal dan share ayat Alquran secara online.
+
+<br/>
 
 ## Tech Stack
 
@@ -11,7 +29,9 @@ IndoQuran adalah sebuah aplikasi web alquran yang menyediakan fitur untuk membac
 - Redux
 - TailwindCss
 
-## Fitur
+<br/>
+
+## Features
 
 - Pencarian Nama Surat
 - Buka Ayat
@@ -24,8 +44,9 @@ IndoQuran adalah sebuah aplikasi web alquran yang menyediakan fitur untuk membac
 - Dark/Light Mode
 - Jadwal Sholat
 
-## Link
+<br/>
 
-Web : [indoquran.my.id](https://www.indoquran.my.id)
+## Links
 
-Repo : [https://github.com/Akbaroke/indoquran.my.id](https://github.com/Akbaroke/indoquran.my.id)
+- Web : [indoquran.my.id](https://www.indoquran.my.id)
+- Repo : [https://github.com/Akbaroke/indoquran.my.id](https://github.com/Akbaroke/indoquran.my.id)
