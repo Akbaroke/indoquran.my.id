@@ -4,9 +4,9 @@
   </a>
   <h2 style="font-size:30px;" align="center"><strong>IndoQuran</strong></h2>
   <p align="center">
-    <a href="https://github.com/fajarspace/stuff-css/issues">Report Bug</a>
+    <a href="https://github.com/Akbaroke/indoquran.my.id/issues">Report Bug</a>
     ·
-    <a href="https://github.com/fajarspace/stuff-css/issues">Request Feature</a>
+    <a href="https://github.com/Akbaroke/indoquran.my.id/issues">Request Feature</a>
   </p>
 
 </div>
