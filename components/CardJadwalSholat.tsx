@@ -47,9 +47,9 @@ export default function CardJadwalSholat() {
   React.useEffect(() => {
     const getDataListArea = async () => {
       const { data } = await axios.get(
-        `https://api.myquran.com/v1/sholat/kota/semua`
+        `${process.env.API_JADWAL_SOLAT}/kota/semua`
       )
-      setListArea(data)
+      setListArea(data.data)
     }
     getDataListArea()
   }, [])
@@ -57,7 +57,7 @@ export default function CardJadwalSholat() {
   React.useEffect(() => {
     const getDataSholat = async () => {
       const { data } = await axios.get(
-        `https://api.myquran.com/v1/sholat/jadwal/${locationId}/${date.year}/${
+        `${process.env.API_JADWAL_SOLAT}/jadwal/${locationId}/${date.year}/${
           date.month < 10 ? (('0' + date.month) as string) : date.month
         }/${date.date}`
       )

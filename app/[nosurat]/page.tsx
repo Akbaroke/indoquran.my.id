@@ -27,7 +27,7 @@ import { useRouter } from 'next/navigation'
 import { WhatsappShareButton } from 'react-share'
 
 async function fetchData(nosurat: string) {
-  const res = await fetch(`${process.env.API_URL}${nosurat}`)
+  const res = await fetch(`${process.env.API_QURAN}${nosurat}`)
   const data = await res.json()
   return data.data
 }
