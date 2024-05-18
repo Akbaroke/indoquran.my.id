@@ -4,7 +4,8 @@ const nextConfig = {
     appDir: true,
   },
   env: {
-    API_URL: process.env.API_URL,
+    API_JADWAL_SOLAT: process.env.API_JADWAL_SOLAT,
+    API_QURAN: process.env.API_QURAN,
     SALT: process.env.SALT,
   },
 }

@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux'
 import { modalLoading, modalSorry, unsetModal } from '@/redux/actions/modal'
 
 async function fetchData(nosurat: string) {
-  const res = await fetch(`${process.env.API_URL}${nosurat}`)
+  const res = await fetch(`${process.env.API_QURAN}${nosurat}`)
   const data = await res.json()
   return data.data
 }

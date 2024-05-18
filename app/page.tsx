@@ -16,7 +16,7 @@ export default function Page() {
   const [searchResult, setSearchResult] = React.useState<ListSurat[]>([])
 
   const { data: listSurat, error } = useSWR<ListSurat[]>(
-    `${process.env.API_URL}/surat`,
+    `${process.env.API_QURAN}/surat`,
     async url => {
       const response = await fetch(url)
       const data = await response.json()
