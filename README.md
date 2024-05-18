@@ -2,7 +2,7 @@
   <a href="https://www.indoquran.my.id">
     <img src="./public/favicon.ico" alt="Logo" width="300">
   </a>
-  <h2 style="font-size:30px;" align="center"><strong>IndoQuran</strong></h2>
+  <h2 style="font-size:30px;" align="center"><strong>IndoQuran V2</strong></h2>
   <p align="center">
     <a href="https://github.com/Akbaroke/indoquran.my.id/issues">Report Bug</a>
     ·
@@ -13,35 +13,40 @@
 
 ## Introduction
 
-IndoQuran adalah sebuah aplikasi web alquran yang menyediakan fitur untuk membaca, mendengarkan murotal dan share ayat Alquran secara online.
+IndoQuran adalah sebuah aplikasi web Al-Quran yang menyediakan fitur untuk membaca, mendengarkan murotal, dan berbagi ayat Al-Quran secara daring. Selain itu, aplikasi ini juga menawarkan doa harian dan hadits.
 
 <br/>
 
 ## Tech Stack
 
-- Nextjs 13
+- Nextjs
 - Typescript
-- Redux
-- TailwindCss
+- Redux Toolkit
+- Tailwind CSS
 
 <br/>
 
 ## Features
 
-- Pencarian Nama Surat
-- Buka Ayat
-- Audio Murotal dengan 5 pilihan versi Qori/imam
-- Tafsir
-- Like ayat (tanpa login)
-- Bookmark ayat (tanpa login)
-- Copy Link ayat
-- Share to WhastApp
-- Dark/Light Mode
-- Jadwal Sholat
+| Features  | V1 | V2     |
+| --------- | ---- | -------- |
+| Alquran dan Terjemah  | Ya   | Ya |
+| Audio Perayat 5 Jenis Qori | Ya   | Ya |
+| Tafsir Perayat | Ya   | Ya |
+| Share Media Sosial | No   | Ya |
+| Dark Mode | Ya   | No |
+| Jadwal Sholat | Ya   | Ya |
+| Adzan Pengingat Sholat | No   | Ya |
+| Hadits 9 Riwayat | No   | Ya |
+| Doa - Doa | No   | Ya |
+| Multiple Bookmark | No   | Ya |
+| Like Ayat | Ya   | No |
+| SEO Friendly | NO   | Ya |
 
 <br/>
 
 ## Links
 
-- Web : https://v1.indoquran.my.id
-- Repo : https://github.com/Akbaroke/indoquran.my.id
+- Web V2 : [indoquran.my.id](https://www.indoquran.my.id)
+- Web V1 : [v1.indoquran.my.id](https://www.v1.indoquran.my.id)
+- Repo : [https://github.com/Akbaroke/indoquran.my.id](https://github.com/Akbaroke/indoquran.my.id)

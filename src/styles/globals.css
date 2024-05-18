@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-arab {
+  font-family: 'Scheherazade New', serif;
+}
+
+.nomer-box-outline {
+  aspect-ratio: 1;
+  clip-path: polygon(100% 50%, 85.11% 64.54%, 85.36% 85.36%, 64.54% 85.11%, 50% 100%, 35.46% 85.11%, 14.64% 85.36%, 14.89% 64.54%, 0% 50%, 14.89% 35.46%, 14.64% 14.64%, 35.46% 14.89%, 50% 0%, 64.54% 14.89%, 85.36% 14.64%, 85.11% 35.46%, 100% 50%, 85.11% 64.54%, calc(85.11% - 2.11px) calc(64.54% - 0.87px), calc(100% - 3px) calc(50% - 0px), calc(85.11% - 2.11px) calc(35.46% - -0.87px), calc(85.36% - 2.12px) calc(14.64% - -2.12px), calc(64.54% - 0.87px) calc(14.89% - -2.11px), calc(50% - 0px) calc(0% - -3px), calc(35.46% - -0.87px) calc(14.89% - -2.11px), calc(14.64% - -2.12px) calc(14.64% - -2.12px), calc(14.89% - -2.11px) calc(35.46% - -0.87px), calc(0% - -3px) calc(50% - 0px), calc(14.89% - -2.11px) calc(64.54% - 0.87px), calc(14.64% - -2.12px) calc(85.36% - 2.12px), calc(35.46% - -0.87px) calc(85.11% - 2.11px), calc(50% - 0px) calc(100% - 3px), calc(64.54% - 0.87px) calc(85.11% - 2.11px), calc(85.36% - 2.12px) calc(85.36% - 2.12px), calc(85.11% - 2.11px) calc(64.54% - 0.87px), calc(100% - 3px) calc(50% - 0px));
+}
+
+.nomer-box-filled {
+  aspect-ratio: 1;
+  clip-path: polygon(100% 50%, 85.11% 64.54%, 85.36% 85.36%, 64.54% 85.11%, 50% 100%, 35.46% 85.11%, 14.64% 85.36%, 14.89% 64.54%, 0% 50%, 14.89% 35.46%, 14.64% 14.64%, 35.46% 14.89%, 50% 0%, 64.54% 14.89%, 85.36% 14.64%, 85.11% 35.46%);
+}
+
+::selection {
+  color: #00957B;
+  background: rgba(2, 190, 159, 0.104)
+}
