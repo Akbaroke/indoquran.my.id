@@ -30,18 +30,20 @@ IndoQuran adalah sebuah aplikasi web Al-Quran yang menyediakan fitur untuk memba
 
 | Features  | V1 | V2     |
 | --------- | ---- | -------- |
-| Alquran dan Terjemah  | Ya   | Ya |
-| Audio Perayat 5 Jenis Qori | Ya   | Ya |
-| Tafsir Perayat | Ya   | Ya |
-| Share Media Sosial | No   | Ya |
-| Dark Mode | Ya   | No |
-| Jadwal Sholat | Ya   | Ya |
-| Adzan Pengingat Sholat | No   | Ya |
-| Hadits 9 Riwayat | No   | Ya |
-| Doa - Doa | No   | Ya |
-| Multiple Bookmark | No   | Ya |
-| Like Ayat | Ya   | No |
-| SEO Friendly | NO   | Ya |
+| Alquran dan Terjemah  | ✓   | ✓ |
+| Audio Perayat 5 Jenis Qori |    | ✓ |
+| Tafsir Perayat | ✓   | ✓ |
+| Share Media Sosial |    | ✓ |
+| Dark Mode | ✓   |  |
+| Jadwal Sholat | ✓   | ✓ |
+| Adzan Pengingat Sholat |    | ✓ |
+| Hadits 9 Riwayat |    | ✓ |
+| Doa - Doa |    | ✓ |
+| Multiple Bookmark |    | ✓ |
+| Like Ayat | ✓   |  |
+| Share Ayat From Image |    | ✓ |
+| SEO Friendly |    | ✓ |
+| Dynamic Open Graph  |    | ✓ |
 
 <br/>
 
