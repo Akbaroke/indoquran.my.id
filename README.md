@@ -49,6 +49,6 @@ IndoQuran adalah sebuah aplikasi web Al-Quran yang menyediakan fitur untuk memba
 
 ## Links
 
-- Web V2 : https://indoquran.my.id
-- Web V1 : https://v1.indoquran.my.id
-- Repo : https://github.com/Akbaroke/indoquran.my.id
+- Web V2 : [indoquran.my.id](https://indoquran.my.id)
+- Web V1 : [v1.indoquran.my.id](https://v1.indoquran.my.id)
+- Repo : [github.com/Akbaroke/indoquran.my.id](https://github.com/Akbaroke/indoquran.my.id)
