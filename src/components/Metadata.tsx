@@ -11,10 +11,9 @@ const Metadata: React.FC<MetadataModel> = ({
   const router = useRouter();
   const { pathname } = router || { pathname: '' };
 
-  const dinamicOgImageUrl =
-    process.env.NEXT_PUBLIC_BASE_URL + '/api/og' + title
-      ? `?title=${title}`
-      : '';
+  const dinamicOgImageUrl = title
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/og?title=${title}`
+    : `${process.env.NEXT_PUBLIC_BASE_URL}/api/og`;
 
   const defaultTitle = 'IndoQur`an';
   const pageUrl = new URL(
