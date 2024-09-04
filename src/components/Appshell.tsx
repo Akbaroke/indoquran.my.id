@@ -125,7 +125,11 @@ export default function Appshell({ children }: Props) {
     <AppShell
       layout={rootPath === '/' ? 'default' : 'alt'}
       header={{ height: 60 }}
-      navbar={{ width: 80, breakpoint: 'sm', collapsed: { mobile: true } }}
+      navbar={{
+        width: 80,
+        breakpoint: rootPath === '/' ? 'xl' : 'sm',
+        collapsed: { mobile: true },
+      }}
       footer={{ height: 60 }}
       padding="md">
       <AppShell.Header>
