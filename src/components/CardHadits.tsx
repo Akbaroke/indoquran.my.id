@@ -1,25 +1,25 @@
-import Nomer from './Nomer';
-import DropdownMenu from './DropdownMenu';
+import Nomer from "./Nomer";
+import DropdownMenu from "./DropdownMenu";
 import {
   IconBookmark,
   IconCopy,
   IconDots,
   IconLink,
   IconShare,
-} from '@tabler/icons-react';
-import { ActionIcon, rem } from '@mantine/core';
-import { IconBookmarkFilled } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+} from "@tabler/icons-react";
+import { ActionIcon, rem } from "@mantine/core";
+import { IconBookmarkFilled } from "@tabler/icons-react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   addBookmarkHadits,
   removeBookmarkHadits,
-} from '@/redux/slices/bookmarkSlice';
-import ModalShareMedia from './ModalShareMedia';
-import Notify from './Notify';
-import { useMediaQuery } from '@mantine/hooks';
-import MenuDrawer from './MenuDrawer';
-import { useRouter } from 'next/router';
+} from "@/redux/slices/bookmarkSlice";
+import ModalShareMedia from "./ModalShareMedia";
+import Notify from "./Notify";
+import { useMediaQuery } from "@mantine/hooks";
+import MenuDrawer from "./MenuDrawer";
+import { useRouter } from "next/router";
 
 type Props = {
   id: string;
@@ -28,13 +28,14 @@ type Props = {
   arti: string;
   riwayat: string;
   isBookmark?: boolean;
-  cardRef?: (el: HTMLDivElement) => void;
+  isLast?: boolean;
+  onNextPage?: () => void;
 };
 
 const styleIcon = {
   width: rem(14),
   height: rem(14),
-  color: 'teal',
+  color: "teal",
   opacity: 0.6,
 };
 
@@ -45,14 +46,16 @@ export default function CardHadits({
   arti,
   riwayat,
   isBookmark,
-  cardRef,
+  isLast,
+  onNextPage,
 }: Props) {
   const dispatch = useDispatch();
   const { asPath } = useRouter();
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const [isBookmrk, setIsBookmrk] = useState(false);
   const [isOpenModalMediaShare, setIsOpenModalMediaShare] = useState(false);
   const [isOpenMenuDrawer, setIsOpenMenuDrawer] = useState(false);
-  const isNotMobile = useMediaQuery('(min-width: 640px)');
+  const isNotMobile = useMediaQuery("(min-width: 640px)");
   const link = `${process.env.NEXT_PUBLIC_BASE_URL}/${asPath}?nomor=${nomor}`;
   const content = `(HR. ${riwayat} No.${nomor}) :
 ${arab}
@@ -67,6 +70,20 @@ ${link}`;
     setIsBookmrk(!!isBookmark);
   }, [isBookmark]);
 
+  useEffect(() => {
+    if (!cardRef?.current) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (isLast && entry.isIntersecting) {
+        onNextPage && onNextPage();
+        observer.unobserve(entry.target);
+      }
+    });
+
+    observer.observe(cardRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLast]);
+
   const handleBookmark = () => {
     if (isBookmrk) {
       dispatch(
@@ -75,8 +92,8 @@ ${link}`;
         })
       );
       Notify({
-        type: 'success',
-        message: 'Hapus Penanda Berhasil!',
+        type: "success",
+        message: "Hapus Penanda Berhasil!",
       });
     } else {
       dispatch(
@@ -88,8 +105,8 @@ ${link}`;
         })
       );
       Notify({
-        type: 'success',
-        message: 'Tambah Penanda Berhasil!',
+        type: "success",
+        message: "Tambah Penanda Berhasil!",
       });
     }
     setIsBookmrk(!isBookmrk);
@@ -102,16 +119,16 @@ ${link}`;
   const handleCopyLink = () => {
     navigator.clipboard.writeText(link);
     Notify({
-      type: 'success',
-      message: 'Copy Link Berhasil!',
+      type: "success",
+      message: "Copy Link Berhasil!",
     });
   };
 
   const handleCopyDoa = () => {
     navigator.clipboard.writeText(content);
     Notify({
-      type: 'success',
-      message: 'Copy Doa Berhasil!',
+      type: "success",
+      message: "Copy Doa Berhasil!",
     });
   };
 
@@ -121,26 +138,26 @@ ${link}`;
 
   const listMenu = [
     {
-      title: 'Copy Doa',
+      title: "Copy Doa",
       icon: <IconCopy style={isNotMobile ? styleIcon : undefined} />,
       onClick: handleCopyDoa,
     },
     {
-      title: 'Copy Link',
+      title: "Copy Link",
       icon: <IconLink style={isNotMobile ? styleIcon : undefined} />,
       onClick: handleCopyLink,
     },
     {
-      title: 'Share Media',
+      title: "Share Media",
       icon: <IconShare style={isNotMobile ? styleIcon : undefined} />,
       onClick: handleShareMedia,
     },
   ];
 
   const bookmarkMenu = {
-    title: isBookmark ? 'Unbookmark' : 'Bookmark',
+    title: isBookmark ? "Unbookmark" : "Bookmark",
     icon: isBookmrk ? (
-      <IconBookmarkFilled style={{ color: 'yellow' }} />
+      <IconBookmarkFilled style={{ color: "yellow" }} />
     ) : (
       <IconBookmark />
     ),
@@ -170,15 +187,16 @@ ${link}`;
                 radius="xl"
                 aria-label="bookmark"
                 color="yellow"
-                onClick={handleBookmark}>
+                onClick={handleBookmark}
+              >
                 {isBookmrk ? (
                   <IconBookmarkFilled
-                    style={{ width: '70%', height: '70%' }}
+                    style={{ width: "70%", height: "70%" }}
                     stroke={1.5}
                   />
                 ) : (
                   <IconBookmark
-                    style={{ width: '70%', height: '70%' }}
+                    style={{ width: "70%", height: "70%" }}
                     stroke={1.5}
                   />
                 )}
@@ -196,9 +214,10 @@ ${link}`;
                   variant="subtle"
                   radius="xl"
                   aria-label="menu"
-                  onClick={handleOpenMenu}>
+                  onClick={handleOpenMenu}
+                >
                   <IconDots
-                    style={{ width: '70%', height: '70%' }}
+                    style={{ width: "70%", height: "70%" }}
                     stroke={1.5}
                   />
                 </ActionIcon>
@@ -208,7 +227,8 @@ ${link}`;
               className="font-arab text-xl md:text-2xl font-semibold text-end"
               style={{
                 lineHeight: 2.5,
-              }}>
+              }}
+            >
               {arab}
             </p>
           </div>

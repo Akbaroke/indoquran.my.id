@@ -2,8 +2,8 @@ import {
   HaditsDetailModel,
   ItemsHaditsType,
   OptionHaditsModel,
-} from '@/models/haditsModel';
-import axios from 'axios';
+} from "@/models/haditsModel";
+import axios from "axios";
 
 export async function getAllHadits(): Promise<OptionHaditsModel[]> {
   try {
@@ -18,11 +18,17 @@ export async function getAllHadits(): Promise<OptionHaditsModel[]> {
 
 export async function getHadits(
   slug: string,
-  page?: number
+  props?: { page?: number; limit?: number }
 ): Promise<HaditsDetailModel | null> {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_HADITS}/${slug}?page=${page ?? 1}&limit=10`
+      `${process.env.NEXT_PUBLIC_API_HADITS}/${slug}`,
+      {
+        params: {
+          page: props?.page ?? 1,
+          limit: props?.limit ?? 10,
+        },
+      }
     );
     return data;
   } catch (error) {
