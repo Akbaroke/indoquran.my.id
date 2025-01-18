@@ -27,7 +27,7 @@ export default function RoadToRamadhan({ ramadhanDate }: Props) {
           title={`road to ramadhan ${gregorianYear}`}
           width={1000}
           height={500}
-          className="w-full sm:min-h-[300px] min-h-[200px] object-cover object-top"
+          className="w-full sm:max-h-[350px] max-h-[200px] object-cover object-center"
         />
         <div className="absolute top-0 left-0 bottom-0 right-0 flex flex-col justify-center items-center bg-black/30 gap-2 px-4">
           <h1 className="text-xs text-cWhite font-medium tracking-widest text-center">
