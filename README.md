@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://www.indoquran.my.id">
-    <img src="./public/favicon.ico" alt="Logo" width="300">
+    <img src="./public/icons/favicon.ico" alt="Logo" width="300">
   </a>
   <h2 style="font-size:30px;" align="center"><strong>IndoQuran V2</strong></h2>
   <p align="center">
